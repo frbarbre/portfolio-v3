@@ -18,22 +18,21 @@ export default async function RootLayout({
   const footer = await client.getSingle("footer");
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
-      <body
-        className={`${inter.className} max-w-8xl mx-auto px-4 md:px-6 lg:px-8`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar data={navbar} />
-          <div className="flex gap-[96px] lg:gap-[156px] flex-col">
-            {children}
-            <Footer footer={footer} />
-          </div>
-        </ThemeProvider>
+      <body className={`${inter.className}`}>
+        <div className="max-w-8xl mx-auto px-4 md:px-6 lg:px-8 overflow-x-hidden">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar data={navbar} />
+            <div className="flex gap-[96px] lg:gap-[156px] flex-col">
+              {children}
+              <Footer footer={footer} />
+            </div>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );

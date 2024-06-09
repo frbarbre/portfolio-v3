@@ -143,7 +143,7 @@ export default function Hero({
             );
           })}
         </h3>
-        <PrismicLink field={slice.primary.link}>
+        <PrismicLink field={slice.primary.link} className="w-max block">
           <Button
             asChild
             className="mt-9"

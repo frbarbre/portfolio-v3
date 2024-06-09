@@ -74,3 +74,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.gradient {
+  background: linear-gradient(
+    to right,
+    #fff 0%,
+    rgba(255, 189, 51, 0) 35%,
+    rgba(255, 189, 51, 0) 70%,
+    #fff 100%
+  );
+}
+
+.dark .gradient {
+  background: linear-gradient(
+    to right,
+    #09090b 0%,
+    rgba(255, 189, 51, 0) 35%,
+    rgba(255, 189, 51, 0) 70%,
+    #09090b 100%
+  );
+}
