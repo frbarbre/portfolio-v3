@@ -94,3 +94,25 @@
     #09090b 100%
   );
 }
+
+@media screen and (max-width: 1150px) {
+  .gradient {
+    background: linear-gradient(
+      to right,
+      #fff 0%,
+      rgba(255, 189, 51, 0) 25%,
+      rgba(255, 189, 51, 0) 75%,
+      #fff 100%
+    );
+  }
+
+  .dark .gradient {
+    background: linear-gradient(
+      to right,
+      #09090b 0%,
+      rgba(255, 189, 51, 0) 25%,
+      rgba(255, 189, 51, 0) 75%,
+      #09090b 100%
+    );
+  }
+}
