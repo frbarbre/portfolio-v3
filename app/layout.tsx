@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { createClient } from "@/prismicio";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import LenisProvider from "@/components/lenis-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +27,13 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar data={navbar} />
-            <div className="flex gap-[96px] lg:gap-[156px] flex-col">
-              {children}
-              <Footer footer={footer} />
-            </div>
+            <LenisProvider>
+              <Navbar data={navbar} />
+              <div className="flex gap-[96px] lg:gap-[156px] flex-col">
+                {children}
+                <Footer footer={footer} />
+              </div>
+            </LenisProvider>
           </ThemeProvider>
         </div>
       </body>
