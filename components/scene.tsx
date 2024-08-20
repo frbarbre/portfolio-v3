@@ -15,8 +15,11 @@ export default function Scene({
   >;
 }) {
   return (
-    <div className="fixed top-0 h-screen w-full">
-      <Canvas>
+    <div
+      id="canvas-wrapper"
+      className="fixed top-0 left-0 w-screen h-screen pointer-events-none z-0"
+    >
+      <Canvas className="pointer-events-none">
         <Model projects={projects} activeMenu={activeMenu} />
       </Canvas>
     </div>

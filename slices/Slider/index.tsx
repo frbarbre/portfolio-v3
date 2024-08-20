@@ -64,7 +64,7 @@ const Slider = ({ slice }: SliderProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className="grid relative lg:grid-cols-layout gap-6"
     >
-      <h2 className="lg:-ml-8 font-medium text-foreground/60 lg:text-foreground self-center bg-background z-20 relative h-full flex items-center lg:pl-8">
+      <h2 className="lg:-ml-8 font-medium text-foreground/60 lg:text-foreground self-center lg:bg-background z-20 relative h-full flex items-center lg:pl-8">
         {slice.primary.title}
       </h2>
       <div className="pointer-events-none gradient z-10 absolute -left-4 md:-left-6 lg:left-[214px] top-6 lg:top-0 -right-4 md:-right-6 lg:-right-8 bottom-0 h-full" />

@@ -1,5 +1,6 @@
 import { Simplify } from "@/prismicio-types";
 import { Content, GroupField } from "@prismicio/client";
+import { PrismicNextLink } from "@prismicio/next";
 import React from "react";
 
 export default function ThreeProjects({
@@ -21,14 +22,17 @@ export default function ThreeProjects({
       >
         {projects.map((project, i) => {
           return (
-            <li
-              onMouseOver={() => {
-                setActiveMenu(i);
-              }}
-              key={project.name}
-              className="text-[4vw] uppercase p-5 border-t"
-            >
-              <p>{project.name}</p>
+            <li key={project.name}>
+              <PrismicNextLink
+                field={project.link}
+                onMouseOver={() => {
+                  setActiveMenu(i);
+                }}
+                className="p-5 border-t uppercase flex items-center justify-between"
+              >
+                <p className="text-[4vw]">{project.name}</p>
+                <p>{project.type}</p>
+              </PrismicNextLink>
             </li>
           );
         })}

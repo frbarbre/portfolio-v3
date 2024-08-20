@@ -14,10 +14,10 @@ export default function Footer({ footer }: { footer: FooterDocument<string> }) {
       className="flex justify-between flex-col xs:flex-row xs:items-end gap-6 pb-8"
     >
       <div>
-        <h3 className="font-bold lg:text-[72px] text-[32px] sm:text-[48px] md:text-[56px] uppercase leading-none tracking-tight mb-4">
+        <h3 className="font-bold lg:text-[72px] text-[32px] sm:text-[48px] md:text-[56px] uppercase leading-none tracking-tight mb-4 relative z-10">
           {footer.data.name}
         </h3>
-        <h2 className="font-bold lg:text-[72px] text-[32px] sm:text-[48px] md:text-[56px] uppercase leading-none tracking-tight">
+        <h2 className="font-bold lg:text-[72px] text-[32px] sm:text-[48px] md:text-[56px] uppercase leading-none tracking-tight relative z-10">
           {footer.data.role}
         </h2>
         <ul className="flex gap-6 pt-8">
@@ -25,7 +25,7 @@ export default function Footer({ footer }: { footer: FooterDocument<string> }) {
             return (
               <li key={link.name}>
                 <PrismicLink
-                  className="font-medium hover:border-b-foreground border-b-2 border-b-background"
+                  className="font-medium hover:border-b-foreground border-b-2 border-b-background relative z-10"
                   field={link.link}
                 >
                   {link.name}
@@ -36,7 +36,7 @@ export default function Footer({ footer }: { footer: FooterDocument<string> }) {
         </ul>
       </div>
       <PrismicNextImage
-        className="w-[108px] h-[29px] dark:invert object-contain"
+        className="w-[108px] h-[29px] dark:invert object-contain relative z-10"
         field={footer.data.logo}
       />
     </m.footer>

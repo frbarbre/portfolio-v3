@@ -6,7 +6,7 @@ export default function ThemeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex gap-3 items-center z-10 relative">
       <button
         onClick={() => setTheme("dark")}
         className="font-medium text-sm tracking-wider border-b-2 border-b-background dark:border-b-foreground"

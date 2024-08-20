@@ -18,7 +18,7 @@ export default function Hero({
   return (
     <>
       <div className="flex flex-col xs:flex-row gap-2 sm:gap-4 md:gap-6 xs:items-end text-[30px] xs:text-[42px] sm:text-[56px] md:text-[72px] lg:text-[92px] tracking-tight font-bold uppercase leading-none">
-        <div className="mb-3 xs:hidden w-max">
+        <div className="mb-3 xs:hidden w-max relative z-10">
           <m.div
             initial={{ scale: 0 }}
             whileInView={{
@@ -33,7 +33,7 @@ export default function Hero({
             viewport={{ once: true }}
           >
             <PrismicNextImage
-              className="rounded-full rounded-bl-none min-w-[100px] max-w-[100px] aspect-square object-cover"
+              className="rounded-full rounded-bl-none min-w-[100px] max-w-[100px] aspect-square object-cover relative z-10"
               field={slice.primary.avatar}
             />
           </m.div>
@@ -48,10 +48,12 @@ export default function Hero({
               stiffness: 70,
             }}
             viewport={{ once: true }}
-            className="pr-2"
+            className="pr-2 relative z-10"
           >
             {slice.primary.firstname}{" "}
-            <span className="xs:hidden">{slice.primary.lastname}</span>
+            <span className="xs:hidden relative z-10">
+              {slice.primary.lastname}
+            </span>
           </m.h2>
         </div>
         <div className="xs:mb-1 sm:mb-1.5 md:mb-2 lg:mb-3 hidden xs:block">
@@ -67,6 +69,7 @@ export default function Hero({
               type: "spring",
             }}
             viewport={{ once: true }}
+            className="relative z-10"
           >
             <PrismicNextImage
               className="rounded-full rounded-bl-none lg:min-w-[115px] lg:max-w-[115px] md:max-w-[100px] md:min-w-[100px] sm:min-w-[80px] sm:max-w-[80px] xs:min-w-[65px] xs:max-w-[65px] min-w-[55px] max-w-[55px] aspect-square object-cover"
@@ -84,6 +87,7 @@ export default function Hero({
               stiffness: 70,
             }}
             viewport={{ once: true }}
+            className="relative z-10"
           >
             {slice.primary.lastname}
           </m.h2>
@@ -100,7 +104,7 @@ export default function Hero({
             stiffness: 70,
           }}
           viewport={{ once: true }}
-          className="text-[29px] xs:text-[42px] sm:text-[56px] md:text-[px] lg:text-[92px] font-bold uppercase tracking-tight leading-none"
+          className="relative z-10 text-[29px] xs:text-[42px] sm:text-[56px] md:text-[px] lg:text-[92px] font-bold uppercase tracking-tight leading-none"
         >
           {slice.primary.role}
         </m.h1>
@@ -116,7 +120,7 @@ export default function Hero({
         }}
         viewport={{ once: true }}
       >
-        <h3 className="leading-relaxed text-[28px] md:text-[32px] lg:text-[40px] font-medium lg:max-w-[940px] md:max-w-[760px] sm:max-w-[680px] xs:max-w-[560px] sm:tracking-tight">
+        <h3 className="leading-relaxed text-[28px] md:text-[32px] lg:text-[40px] font-medium lg:max-w-[940px] md:max-w-[760px] sm:max-w-[680px] xs:max-w-[560px] sm:tracking-tight relative z-10">
           {taglineArr.map((tagline, i) => {
             const icon = slice.primary.icons[i - 1];
 
@@ -143,7 +147,10 @@ export default function Hero({
             );
           })}
         </h3>
-        <PrismicLink field={slice.primary.link} className="w-max block">
+        <PrismicLink
+          field={slice.primary.link}
+          className="w-max block z-10 relative"
+        >
           <Button
             asChild
             className="mt-9"

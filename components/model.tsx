@@ -92,7 +92,7 @@ export default function Model({
   return (
     //@ts-ignore
     <motion.mesh position-x={x} position-y={y} ref={plane} scale={scale}>
-      <planeGeometry args={[1, 1, 15, 15]} />
+      <planeGeometry args={[1.25, 1.25, 15, 15]} />
       {/* <meshBasicMaterial wireframe={true} color="red"/> */}
       <shaderMaterial
         vertexShader={vertex}

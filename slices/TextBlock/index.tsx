@@ -27,7 +27,7 @@ const About = ({ slice }: AboutProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className="relative grid lg:grid-cols-layout gap-6"
     >
-      <h2 className="font-medium text-foreground/60 lg:text-foreground">
+      <h2 className="font-medium text-foreground/60 lg:text-foreground relative z-10">
         {slice.primary.title}
       </h2>
       <div className="-mt-1.5">
@@ -36,7 +36,7 @@ const About = ({ slice }: AboutProps): JSX.Element => {
           components={(type, node, content, children) => {
             if (type === "paragraph") {
               return (
-                <p className="text-[28px] lg:text-[35px] font-medium">
+                <p className="text-[28px] lg:text-[35px] font-medium relative z-10">
                   {children}
                 </p>
               );

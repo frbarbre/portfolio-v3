@@ -26,9 +26,9 @@ const Projects = ({ slice }: ProjectsProps): JSX.Element => {
       transition={{ duration: 0.5 }}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="relative grid lg:grid-cols-layout gap-6"
+      className="relative grid lg:grid-cols-layout gap-6 "
     >
-      <h2 className="font-medium text-foreground/60 lg:text-foreground">
+      <h2 className="font-medium text-foreground/60 lg:text-foreground relative z-10">
         {slice.primary.title}
       </h2>
       <div>
