@@ -13,7 +13,7 @@ export default function ThreeProjects({
   >;
 }) {
   return (
-    <div className="relative mix-blend-difference z-10 text-white w-full">
+    <div className="relative mix-blend-difference z-10 text-foreground w-full">
       <ul
         onMouseLeave={() => {
           setActiveMenu(null);

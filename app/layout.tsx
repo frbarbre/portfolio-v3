@@ -1,6 +1,5 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { ThemeProvider } from "@/components/theme-provider";
 import { createClient } from "@/prismicio";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -18,23 +17,16 @@ export default async function RootLayout({
   const navbar = await client.getSingle("navbar");
   const footer = await client.getSingle("footer");
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}`}>
+    <html lang="en">
+      <body className={`${inter.className} dark`}>
         <div className="max-w-8xl mx-auto px-4 md:px-6 lg:px-8 overflow-x-hidden">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <LenisProvider>
-              <Navbar data={navbar} />
-              <div className="flex gap-[96px] lg:gap-[156px] flex-col">
-                {children}
-                <Footer footer={footer} />
-              </div>
-            </LenisProvider>
-          </ThemeProvider>
+          <LenisProvider>
+            <Navbar data={navbar} />
+            <div className="flex gap-[96px] lg:gap-[156px] flex-col">
+              {children}
+              <Footer footer={footer} />
+            </div>
+          </LenisProvider>
         </div>
       </body>
     </html>

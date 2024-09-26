@@ -1,6 +1,5 @@
 import { NavbarDocument } from "@/prismicio-types";
 import { PrismicNextImage } from "@prismicio/next";
-import ThemeToggle from "./theme-toggle";
 
 export default function Navbar({ data }: { data: NavbarDocument<string> }) {
   return (
@@ -9,8 +8,6 @@ export default function Navbar({ data }: { data: NavbarDocument<string> }) {
         field={data.data.logo}
         className="dark:invert w-[108px] object-contain relative z-10"
       />
-
-      <ThemeToggle />
     </header>
   );
 }
