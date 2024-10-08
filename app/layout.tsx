@@ -1,9 +1,10 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { createClient } from "@/prismicio";
+import { createClient, repositoryName } from "@/prismicio";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/lenis-provider";
+import { PrismicPreview } from "@prismicio/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default async function RootLayout({
               <Footer footer={footer} />
             </div>
           </LenisProvider>
+          <PrismicPreview repositoryName={repositoryName} />
         </div>
       </body>
     </html>
