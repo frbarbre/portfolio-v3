@@ -30,7 +30,7 @@ export default function ThreeProjects({
                 }}
                 className="p-5 border-t uppercase flex items-center justify-between"
               >
-                <p className="text-[4vw]">{project.name}</p>
+                <p className="text-[72px]">{project.name}</p>
                 <p>{project.type}</p>
               </PrismicNextLink>
             </li>
