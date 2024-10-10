@@ -20,6 +20,20 @@
             "select": "media",
             "allowText": true
           }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "year": {
+          "type": "Number",
+          "config": {
+            "label": "Year",
+            "placeholder": ""
+          }
         }
       },
       "items": {}
