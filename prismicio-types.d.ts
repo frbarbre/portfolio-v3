@@ -191,7 +191,76 @@ export type NavbarDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = FooterDocument | HomeDocument | NavbarDocument;
+type ProjectDocumentDataSlicesSlice = SliderSlice | ProjectHeroSlice;
+
+/**
+ * Content for Project documents
+ */
+interface ProjectDocumentData {
+  /**
+   * Slice Zone field in *Project*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ProjectDocumentDataSlicesSlice> /**
+   * Meta Title field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: project.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: project.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Project*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Project document from Prismic
+ *
+ * - **API ID**: `project`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProjectDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ProjectDocumentData>,
+    "project",
+    Lang
+  >;
+
+export type AllDocumentTypes =
+  | FooterDocument
+  | HomeDocument
+  | NavbarDocument
+  | ProjectDocument;
 
 /**
  * Item in *TextBlock → With Buttons → Primary → Buttons*
@@ -499,6 +568,51 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Primary content in *ProjectHero → Default → Primary*
+ */
+export interface ProjectHeroSliceDefaultPrimary {
+  /**
+   * Content field in *ProjectHero → Default → Primary*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_hero.default.primary.content
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  content: prismic.LinkToMediaField;
+}
+
+/**
+ * Default variation for ProjectHero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ProjectHeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ProjectHeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProjectHero*
+ */
+type ProjectHeroSliceVariation = ProjectHeroSliceDefault;
+
+/**
+ * ProjectHero Shared Slice
+ *
+ * - **API ID**: `project_hero`
+ * - **Description**: ProjectHero
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ProjectHeroSlice = prismic.SharedSlice<
+  "project_hero",
+  ProjectHeroSliceVariation
+>;
+
+/**
  * Item in *Projects → Default → Primary → Projects*
  */
 export interface ProjectsSliceDefaultPrimaryProjectsItem {
@@ -700,6 +814,17 @@ declare module "@prismicio/client" {
     ): prismic.Client<AllDocumentTypes>;
   }
 
+  interface CreateWriteClient {
+    (
+      repositoryNameOrEndpoint: string,
+      options: prismic.WriteClientConfig,
+    ): prismic.WriteClient<AllDocumentTypes>;
+  }
+
+  interface CreateMigration {
+    (): prismic.Migration<AllDocumentTypes>;
+  }
+
   namespace Content {
     export type {
       FooterDocument,
@@ -710,6 +835,9 @@ declare module "@prismicio/client" {
       HomeDocumentDataSlicesSlice,
       NavbarDocument,
       NavbarDocumentData,
+      ProjectDocument,
+      ProjectDocumentData,
+      ProjectDocumentDataSlicesSlice,
       AllDocumentTypes,
       AboutSlice,
       AboutSliceDefaultPrimary,
@@ -723,6 +851,10 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      ProjectHeroSlice,
+      ProjectHeroSliceDefaultPrimary,
+      ProjectHeroSliceVariation,
+      ProjectHeroSliceDefault,
       ProjectsSlice,
       ProjectsSliceDefaultPrimaryProjectsItem,
       ProjectsSliceDefaultPrimary,

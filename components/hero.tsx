@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Content } from "@prismicio/client";
-import { PrismicNextImage } from "@prismicio/next";
-import { Fragment } from "react";
-import Button from "../button";
-import { motion as m } from "framer-motion";
-import { PrismicLink } from "@prismicio/react";
-import { cn } from "@/lib/utils";
+import { Content } from '@prismicio/client';
+import { PrismicNextImage } from '@prismicio/next';
+import { Fragment } from 'react';
+import Button from './button';
+import { motion as m } from 'framer-motion';
+import { PrismicLink } from '@prismicio/react';
+import { cn } from '@/lib/utils';
 
 export default function Hero({
   slice,
@@ -17,8 +17,8 @@ export default function Hero({
 }) {
   return (
     <>
-      <div className="flex flex-col xs:flex-row gap-2 sm:gap-4 md:gap-6 xs:items-end text-[30px] xs:text-[42px] sm:text-[56px] md:text-[72px] lg:text-[92px] tracking-tight font-bold uppercase leading-none">
-        <div className="mb-3 xs:hidden w-max relative z-10">
+      <div className="flex flex-col gap-2 text-[30px] font-bold uppercase leading-none tracking-tight xs:flex-row xs:items-end xs:text-[42px] sm:gap-4 sm:text-[56px] md:gap-6 md:text-[72px] lg:text-[92px]">
+        <div className="relative z-10 mb-3 w-max xs:hidden">
           <m.div
             initial={{ scale: 0 }}
             whileInView={{
@@ -28,35 +28,35 @@ export default function Hero({
               delay: 0.5,
               damping: 20,
               stiffness: 70,
-              type: "spring",
+              type: 'spring',
             }}
             viewport={{ once: true }}
           >
             <PrismicNextImage
-              className="rounded-full rounded-bl-none min-w-[100px] max-w-[100px] aspect-square object-cover relative z-10"
+              className="relative z-10 aspect-square min-w-[100px] max-w-[100px] rounded-full rounded-bl-none object-cover"
               field={slice.primary.avatar}
             />
           </m.div>
         </div>
         <div className="overflow-hidden">
           <m.h2
-            initial={{ y: "100%" }}
+            initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               damping: 20,
               stiffness: 70,
             }}
             viewport={{ once: true }}
-            className="pr-2 relative z-10"
+            className="relative z-10 pr-2"
           >
-            {slice.primary.firstname}{" "}
-            <span className="xs:hidden relative z-10">
+            {slice.primary.firstname}{' '}
+            <span className="relative z-10 xs:hidden">
               {slice.primary.lastname}
             </span>
           </m.h2>
         </div>
-        <div className="xs:mb-1 sm:mb-1.5 md:mb-2 lg:mb-3 hidden xs:block">
+        <div className="hidden xs:mb-1 xs:block sm:mb-1.5 md:mb-2 lg:mb-3">
           <m.div
             initial={{ scale: 0, originY: 1 }}
             whileInView={{
@@ -66,23 +66,23 @@ export default function Hero({
               delay: 0.5,
               damping: 20,
               stiffness: 70,
-              type: "spring",
+              type: 'spring',
             }}
             viewport={{ once: true }}
             className="relative z-10"
           >
             <PrismicNextImage
-              className="rounded-full rounded-bl-none lg:min-w-[115px] lg:max-w-[115px] md:max-w-[100px] md:min-w-[100px] sm:min-w-[80px] sm:max-w-[80px] xs:min-w-[65px] xs:max-w-[65px] min-w-[55px] max-w-[55px] aspect-square object-cover"
+              className="aspect-square min-w-[55px] max-w-[55px] rounded-full rounded-bl-none object-cover xs:min-w-[65px] xs:max-w-[65px] sm:min-w-[80px] sm:max-w-[80px] md:min-w-[100px] md:max-w-[100px] lg:min-w-[115px] lg:max-w-[115px]"
               field={slice.primary.avatar}
             />
           </m.div>
         </div>
-        <div className="overflow-hidden hidden xs:block">
+        <div className="hidden overflow-hidden xs:block">
           <m.h2
-            initial={{ y: "100%" }}
+            initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               damping: 20,
               stiffness: 70,
             }}
@@ -93,18 +93,18 @@ export default function Hero({
           </m.h2>
         </div>
       </div>
-      <m.div className="overflow-hidden my-6">
+      <m.div className="my-6 overflow-hidden">
         <m.h1
-          initial={{ y: "100%" }}
+          initial={{ y: '100%' }}
           whileInView={{ y: 0 }}
           transition={{
             delay: 0.1,
-            type: "spring",
+            type: 'spring',
             damping: 20,
             stiffness: 70,
           }}
           viewport={{ once: true }}
-          className="relative z-10 text-[29px] xs:text-[42px] sm:text-[56px] md:text-[px] lg:text-[92px] font-bold uppercase tracking-tight leading-none"
+          className="relative z-10 text-[29px] font-bold uppercase leading-none tracking-tight xs:text-[42px] sm:text-[56px] md:text-[px] lg:text-[92px]"
         >
           {slice.primary.role}
         </m.h1>
@@ -114,21 +114,21 @@ export default function Hero({
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
           delay: 0.4,
-          type: "spring",
+          type: 'spring',
           damping: 20,
           stiffness: 70,
         }}
         viewport={{ once: true }}
       >
-        <h3 className="leading-relaxed text-[28px] md:text-[32px] lg:text-[40px] font-medium lg:max-w-[940px] md:max-w-[760px] sm:max-w-[680px] xs:max-w-[560px] sm:tracking-tight relative z-10">
+        <h3 className="relative z-10 text-balance text-[28px] font-medium leading-relaxed xs:max-w-[560px] sm:max-w-[680px] sm:tracking-tight md:max-w-[760px] md:text-[32px] lg:max-w-[940px] lg:text-[40px]">
           {taglineArr.map((tagline, i) => {
             const icon = slice.primary.icons[i - 1];
 
             if (!icon) return <Fragment key={i}>{tagline}</Fragment>;
 
             const line = tagline
-              .replace(String(icon.split_word), "")
-              .replace(" ,", ",");
+              .replace(String(icon.split_word), '')
+              .replace(' ,', ',');
 
             return (
               <Fragment key={i}>
@@ -137,8 +137,8 @@ export default function Hero({
                   width={32}
                   height={32}
                   className={cn(
-                    "inline -translate-y-1 mx-1.5 xs:mx-3 h-[24px] w-[24px] xs:h-[32px] xs:w-[32px]",
-                    icon.should_invert && "dark:invert"
+                    'mx-1.5 inline h-[24px] w-[24px] -translate-y-1 xs:mx-3 xs:h-[32px] xs:w-[32px]',
+                    icon.should_invert && 'dark:invert',
                   )}
                 />
                 {icon.split_word}
@@ -149,7 +149,7 @@ export default function Hero({
         </h3>
         <PrismicLink
           field={slice.primary.link}
-          className="w-max block z-10 relative"
+          className="relative z-10 block w-max"
         >
           <Button
             asChild

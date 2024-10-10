@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Lenis from "lenis";
-import { useEffect } from "react";
+import Lenis from 'lenis';
+import { useEffect } from 'react';
 
 export default function LenisProvider({
   children,

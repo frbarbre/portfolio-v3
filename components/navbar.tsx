@@ -1,13 +1,16 @@
-import { NavbarDocument } from "@/prismicio-types";
-import { PrismicNextImage } from "@prismicio/next";
+import { NavbarDocument } from '@/prismicio-types';
+import { PrismicNextImage } from '@prismicio/next';
+import Link from 'next/link';
 
 export default function Navbar({ data }: { data: NavbarDocument<string> }) {
   return (
-    <header className="py-6 flex justify-between items-center">
-      <PrismicNextImage
-        field={data.data.logo}
-        className="dark:invert w-[108px] object-contain relative z-10"
-      />
+    <header className="flex items-center justify-between py-6">
+      <Link href="/">
+        <PrismicNextImage
+          field={data.data.logo}
+          className="relative z-10 w-[108px] object-contain transition-opacity hover:opacity-80 dark:invert"
+        />
+      </Link>
     </header>
   );
 }

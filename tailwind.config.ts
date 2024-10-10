@@ -76,6 +76,9 @@ const config = {
       gridTemplateColumns: {
         layout: "214px 1fr",
       },
+      transitionDelay: {
+        "400": "400ms",
+      },
     },
     screens: {
       xs: "520px",

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Button from "@/components/button";
-import { Content } from "@prismicio/client";
+import Button from '@/components/button';
+import { Content } from '@prismicio/client';
 import {
   PrismicLink,
   PrismicRichText,
   SliceComponentProps,
-} from "@prismicio/react";
-import { motion as m } from "framer-motion";
+} from '@prismicio/react';
+import { motion as m } from 'framer-motion';
 
 /**
  * Props for `About`.
@@ -25,26 +25,26 @@ const About = ({ slice }: AboutProps): JSX.Element => {
       transition={{ duration: 0.5 }}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="relative grid lg:grid-cols-layout gap-6"
+      className="relative grid gap-6 lg:grid-cols-layout"
     >
-      <h2 className="font-medium text-foreground/60 lg:text-foreground relative z-10">
+      <h2 className="relative z-10 font-medium text-foreground/60 lg:text-foreground">
         {slice.primary.title}
       </h2>
       <div className="-mt-1.5">
         <PrismicRichText
           field={slice.primary.description}
           components={(type, node, content, children) => {
-            if (type === "paragraph") {
+            if (type === 'paragraph') {
               return (
-                <p className="text-[28px] lg:text-[35px] font-medium relative z-10">
+                <p className="relative z-10 text-[28px] font-medium lg:text-[35px]">
                   {children}
                 </p>
               );
             }
           }}
         />
-        {slice.variation === "withButtons" && (
-          <div className="flex flex-wrap gap-3 mt-9">
+        {slice.variation === 'withButtons' && (
+          <div className="mt-9 flex flex-wrap gap-3">
             {slice.primary.buttons.map((button, i) => {
               return (
                 <PrismicLink field={button.link} key={i}>

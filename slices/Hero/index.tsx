@@ -1,7 +1,7 @@
-import HeroComponent from "@/components/hero/hero";
-import { splitDescription } from "@/utils/splitDescription";
-import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import HeroComponent from '@/components/hero';
+import { splitDescription } from '@/utils/splitDescription';
+import { Content } from '@prismicio/client';
+import { SliceComponentProps } from '@prismicio/react';
 
 /**
  * Props for `Hero`.
@@ -16,7 +16,7 @@ const Hero = async ({ slice }: HeroProps): Promise<JSX.Element> => {
 
   const taglineArr = splitDescription(
     String(slice.primary.tagline),
-    splitWords
+    splitWords,
   );
 
   return (

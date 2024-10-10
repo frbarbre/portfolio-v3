@@ -1,0 +1,28 @@
+{
+  "id": "project_hero",
+  "type": "SharedSlice",
+  "name": "ProjectHero",
+  "description": "ProjectHero",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "content": {
+          "type": "Link",
+          "config": {
+            "label": "Content",
+            "placeholder": "",
+            "select": "media",
+            "allowText": true
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

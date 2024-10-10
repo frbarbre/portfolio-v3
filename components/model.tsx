@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { motion } from "framer-motion-3d";
-import { animate, useMotionValue, useTransform } from "framer-motion";
-import { vertex, fragment } from "./shader";
-import { useTexture, useAspect } from "@react-three/drei";
-import useMouse from "@/hooks/useMouse";
-import useDimension from "@/hooks/useDimension";
-import { Content, GroupField } from "@prismicio/client";
-import { Simplify } from "@/prismicio-types";
+import React, { useEffect, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { motion } from 'framer-motion-3d';
+import { animate, useMotionValue, useTransform } from 'framer-motion';
+import { vertex, fragment } from './shader';
+import { useTexture, useAspect } from '@react-three/drei';
+import useMouse from '@/hooks/useMouse';
+import useDimension from '@/hooks/useDimension';
+import { Content, GroupField } from '@prismicio/client';
+import { Simplify } from '@/prismicio-types';
 
 export default function Model({
   activeMenu,
@@ -24,7 +24,7 @@ export default function Model({
   const mouse = useMouse();
   const opacity = useMotionValue(0);
   const textures = projects.map((project) =>
-    useTexture(project.image.url || "")
+    useTexture(project.image.url || ''),
   );
   const { width, height } = textures[0].image;
   const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
@@ -81,12 +81,12 @@ export default function Model({
   const x = useTransform(
     smoothMouse.x,
     [0, dimension.width],
-    [(-1 * viewport.width) / 2, viewport.width / 2]
+    [(-1 * viewport.width) / 2, viewport.width / 2],
   );
   const y = useTransform(
     smoothMouse.y,
     [0, dimension.height],
-    [viewport.height / 2, (-1 * viewport.height) / 2]
+    [viewport.height / 2, (-1 * viewport.height) / 2],
   );
 
   return (

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { FooterDocument } from "@/prismicio-types";
-import { PrismicNextImage } from "@prismicio/next";
-import { PrismicLink } from "@prismicio/react";
-import { motion as m } from "framer-motion";
+import { FooterDocument } from '@/prismicio-types';
+import { PrismicNextImage } from '@prismicio/next';
+import { PrismicLink } from '@prismicio/react';
+import { motion as m } from 'framer-motion';
 
 export default function Footer({ footer }: { footer: FooterDocument<string> }) {
   return (
@@ -11,13 +11,13 @@ export default function Footer({ footer }: { footer: FooterDocument<string> }) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex justify-between flex-col xs:flex-row xs:items-end gap-6 pb-8"
+      className="flex flex-col justify-between gap-6 pb-8 xs:flex-row xs:items-end"
     >
       <div>
-        <h3 className="font-bold lg:text-[72px] text-[32px] sm:text-[48px] md:text-[56px] uppercase leading-none tracking-tight mb-4 relative z-10">
+        <h3 className="relative z-10 mb-4 text-[32px] font-bold uppercase leading-none tracking-tight sm:text-[48px] md:text-[56px] lg:text-[72px]">
           {footer.data.name}
         </h3>
-        <h2 className="font-bold lg:text-[72px] text-[32px] sm:text-[48px] md:text-[56px] uppercase leading-none tracking-tight relative z-10">
+        <h2 className="relative z-10 text-[32px] font-bold uppercase leading-none tracking-tight sm:text-[48px] md:text-[56px] lg:text-[72px]">
           {footer.data.role}
         </h2>
         <ul className="flex gap-6 pt-8">
@@ -25,7 +25,7 @@ export default function Footer({ footer }: { footer: FooterDocument<string> }) {
             return (
               <li key={link.name}>
                 <PrismicLink
-                  className="font-medium hover:border-b-foreground border-b-2 border-b-background relative z-10"
+                  className="relative z-10 border-b-2 border-b-background font-medium hover:border-b-foreground"
                   field={link.link}
                 >
                   {link.name}
@@ -36,7 +36,7 @@ export default function Footer({ footer }: { footer: FooterDocument<string> }) {
         </ul>
       </div>
       <PrismicNextImage
-        className="w-[108px] h-[29px] dark:invert object-contain relative z-10"
+        className="relative z-10 h-[29px] w-[108px] object-contain dark:invert"
         field={footer.data.logo}
       />
     </m.footer>

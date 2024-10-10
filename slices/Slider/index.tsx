@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Card from "@/components/card";
-import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
-import { animate, motion as m, useMotionValue } from "framer-motion";
-import { useEffect, useState } from "react";
-import useMeasure from "react-use-measure";
+import Card from '@/components/card';
+import { Content } from '@prismicio/client';
+import { SliceComponentProps } from '@prismicio/react';
+import { animate, motion as m, useMotionValue } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import useMeasure from 'react-use-measure';
 
 /**
  * Props for `Slider`.
@@ -33,7 +33,7 @@ const Slider = ({ slice }: SliderProps): JSX.Element => {
 
     if (mustFinish) {
       controls = animate(xTranslation, [xTranslation.get(), finalPosition], {
-        ease: "linear",
+        ease: 'linear',
         duration: duration * (1 - xTranslation.get() / finalPosition),
         onComplete: () => {
           setMustFinish(false);
@@ -42,10 +42,10 @@ const Slider = ({ slice }: SliderProps): JSX.Element => {
       });
     } else {
       controls = animate(xTranslation, [0, finalPosition], {
-        ease: "linear",
+        ease: 'linear',
         duration: duration,
         repeat: Infinity,
-        repeatType: "loop",
+        repeatType: 'loop',
         repeatDelay: 0,
       });
     }
@@ -62,16 +62,16 @@ const Slider = ({ slice }: SliderProps): JSX.Element => {
       transition={{ duration: 0.5 }}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="grid relative lg:grid-cols-layout gap-6"
+      className="relative grid gap-6 lg:grid-cols-layout"
     >
-      <h2 className="lg:-ml-8 font-medium text-foreground/60 lg:text-foreground self-center lg:bg-background z-20 relative h-full flex items-center lg:pl-8">
+      <h2 className="relative z-20 flex h-full items-center self-center font-medium text-foreground/60 lg:-ml-8 lg:bg-background lg:pl-8 lg:text-foreground">
         {slice.primary.title}
       </h2>
-      <div className="pointer-events-none gradient z-10 absolute -left-4 md:-left-6 lg:left-[214px] top-6 lg:top-0 -right-4 md:-right-6 lg:-right-8 bottom-0 h-full" />
+      <div className="gradient pointer-events-none absolute -left-4 -right-4 bottom-0 top-6 z-10 h-full md:-left-6 md:-right-6 lg:-right-8 lg:left-[214px] lg:top-0" />
 
-      <div className="lg:h-[140px] h-[120px] relative">
+      <div className="relative h-[120px] lg:h-[140px]">
         <m.div
-          className="lg:absolute left-0"
+          className="left-0 lg:absolute"
           style={{ x: xTranslation }}
           ref={ref}
           onHoverStart={() => {

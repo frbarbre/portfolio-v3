@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Scene from "@/components/scene";
-import ThreeProjects from "@/components/three-projects";
-import { Content } from "@prismicio/client";
-import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
-import { SliceComponentProps } from "@prismicio/react";
-import { motion as m } from "framer-motion";
-import { useState } from "react";
+import Scene from '@/components/scene';
+import ThreeProjects from '@/components/three-projects';
+import { Content } from '@prismicio/client';
+import { PrismicNextImage, PrismicNextLink } from '@prismicio/next';
+import { SliceComponentProps } from '@prismicio/react';
+import { motion as m } from 'framer-motion';
+import { useState } from 'react';
 
 /**
  * Props for `Projects`.
@@ -27,9 +27,9 @@ const Projects = ({ slice }: ProjectsProps): JSX.Element => {
         transition={{ duration: 0.5 }}
         data-slice-type={slice.slice_type}
         data-slice-variation={slice.variation}
-        className="relative lg:grid-cols-layout gap-6 grid"
+        className="relative grid gap-6 lg:grid-cols-layout"
       >
-        <h2 className="font-medium text-foreground/60 lg:text-foreground relative z-10">
+        <h2 className="relative z-10 font-medium text-foreground/60 lg:text-foreground">
           {slice.primary.title}
         </h2>
         <div className="hidden lg:block">
@@ -40,19 +40,19 @@ const Projects = ({ slice }: ProjectsProps): JSX.Element => {
           <Scene projects={slice.primary.projects} activeMenu={activeMenu} />
         </div>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:hidden">
+        <ul className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:hidden">
           {slice.primary.projects.map((project, i) => {
             return (
               <li
                 key={i}
-                className="w-full md:hover:scale-[103%] transition-transform"
+                className="w-full transition-transform md:hover:scale-[103%]"
               >
                 <PrismicNextLink field={project.link}>
                   <PrismicNextImage
                     field={project.image}
                     className="rounded-md"
                   />
-                  <article className="flex justify-between gap-4 flex-wrap mt-3 uppercase">
+                  <article className="mt-3 flex flex-wrap justify-between gap-4 uppercase">
                     <h2 className="font-medium">{project.name}</h2>
                     <p className="text-foreground/80">{project.type}</p>
                   </article>

@@ -1,7 +1,7 @@
-import { Simplify } from "@/prismicio-types";
-import { Content, GroupField } from "@prismicio/client";
-import { PrismicNextLink } from "@prismicio/next";
-import React from "react";
+import { Simplify } from '@/prismicio-types';
+import { Content, GroupField } from '@prismicio/client';
+import { PrismicNextLink } from '@prismicio/next';
+import React from 'react';
 
 export default function ThreeProjects({
   setActiveMenu,
@@ -13,7 +13,7 @@ export default function ThreeProjects({
   >;
 }) {
   return (
-    <div className="relative mix-blend-difference z-10 text-foreground w-full">
+    <div className="relative z-10 w-full text-foreground mix-blend-difference">
       <ul
         onMouseLeave={() => {
           setActiveMenu(null);
@@ -28,7 +28,7 @@ export default function ThreeProjects({
                 onMouseOver={() => {
                   setActiveMenu(i);
                 }}
-                className="p-5 border-t uppercase flex items-center justify-between"
+                className="flex items-center justify-between border-t p-5 uppercase"
               >
                 <p className="text-[64px]">{project.name}</p>
                 <p>{project.type}</p>
