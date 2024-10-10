@@ -1,0 +1,25 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "edge",
+				"type": "Text"
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Commodo ea exercitation nulla duis non nulla Lorem voluptate cillum magna mollit. Exercitation qui aliqua adipisicing aliquip aute. Quis deserunt dolor eu nisi eu pariatur excepteur non irure laboris laboris."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

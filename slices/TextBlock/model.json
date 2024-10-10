@@ -15,7 +15,7 @@
         "description": {
           "type": "StructuredText",
           "config": {
-            "label": "description",
+            "label": "Description",
             "placeholder": "",
             "allowTargetBlank": true,
             "multi": "paragraph"
@@ -24,8 +24,17 @@
         "title": {
           "type": "Text",
           "config": {
-            "label": "title",
+            "label": "Title",
             "placeholder": ""
+          }
+        },
+        "fullwidth": {
+          "type": "Boolean",
+          "config": {
+            "label": "Full Width",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": true
           }
         }
       },
@@ -55,6 +64,15 @@
             "multi": "paragraph"
           }
         },
+        "full_width": {
+          "type": "Boolean",
+          "config": {
+            "label": "Full Width",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": true
+          }
+        },
         "buttons": {
           "type": "Group",
           "config": {
@@ -81,6 +99,87 @@
                   "label": "Link",
                   "placeholder": "",
                   "select": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "withStats",
+      "name": "With Stats",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph"
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "title",
+            "placeholder": ""
+          }
+        },
+        "full_width": {
+          "type": "Boolean",
+          "config": {
+            "label": "Full Width",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": true
+          }
+        },
+        "stats": {
+          "type": "Group",
+          "config": {
+            "label": "Stats",
+            "repeat": true,
+            "fields": {
+              "label": {
+                "type": "Text",
+                "config": {
+                  "label": "Label",
+                  "placeholder": ""
+                }
+              },
+              "link": {
+                "type": "Link",
+                "config": {
+                  "label": "Link",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "select": null,
+                  "allowText": true
+                }
+              },
+              "value": {
+                "type": "Text",
+                "config": {
+                  "label": "Value",
+                  "placeholder": ""
+                }
+              },
+              "text_or_link": {
+                "type": "Select",
+                "config": {
+                  "label": "Text or Link",
+                  "placeholder": "",
+                  "options": [
+                    "Text",
+                    "Link"
+                  ],
+                  "default_value": "Text"
                 }
               }
             }

@@ -9,15 +9,19 @@
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "Sint reprehenderit ex adipisicing Lorem velit culpa non ex culpa adipisicing aliqua qui."
+							"text": "Excepteur sit commodo occaecat deserunt Lorem."
 						}
 					}
 				]
 			},
 			"title": {
 				"__TYPE__": "FieldContent",
-				"value": "select",
+				"value": "studied",
 				"type": "Text"
+			},
+			"fullwidth": {
+				"__TYPE__": "BooleanContent",
+				"value": true
 			}
 		},
 		"items": []
@@ -77,6 +81,87 @@
 						]
 					}
 				]
+			},
+			"full_width": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "withStats",
+		"primary": {
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Cupidatat labore exercitation et. Tempor duis dolor nisi. Sunt laborum culpa dolor ad velit irure."
+						}
+					}
+				]
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "particularly",
+				"type": "Text"
+			},
+			"stats": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"label",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "task",
+									"type": "Text"
+								}
+							],
+							[
+								"link",
+								{
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "ExternalLink",
+										"url": "http://twitter.com",
+										"text": "motor"
+									}
+								}
+							],
+							[
+								"value",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "leader",
+									"type": "Text"
+								}
+							],
+							[
+								"text_or_link",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "Text",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"full_width": {
+				"__TYPE__": "BooleanContent",
+				"value": false
 			}
 		},
 		"items": [
