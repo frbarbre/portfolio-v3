@@ -2,9 +2,46 @@ import { ImageFieldImage, RichTextField } from '@prismicio/client';
 import { PrismicNextImage } from '@prismicio/next';
 import {
   JSXMapSerializer,
-  PrismicRichText,
   PrismicLink,
+  PrismicRichText,
 } from '@prismicio/react';
+import { Highlight, HighlightProps, themes } from 'prism-react-renderer';
+
+const HighlightWrapper = (props: HighlightProps) => {
+  return (
+    <Highlight {...props}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre
+          className={`${className} overflow-auto rounded border p-4`}
+          style={style}
+        >
+          {tokens.map((line, i) => (
+            <div key={i} {...getLineProps({ line })}>
+              {line.map((token, key) => (
+                <span key={key} {...getTokenProps({ token })} />
+              ))}
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight>
+  );
+};
+
+const CodeBlock = ({ node }: { node: any }) => {
+  const code = node.text || '';
+  const language = node.spans[0]?.data?.label || 'javascript';
+
+  return (
+    <HighlightWrapper
+      theme={themes.synthwave84}
+      code={code}
+      language={language}
+    >
+      {code}
+    </HighlightWrapper>
+  );
+};
 
 export const richTextComponents: JSXMapSerializer = {
   // Headings
@@ -35,7 +72,7 @@ export const richTextComponents: JSXMapSerializer = {
   oListItem: ({ children }) => <li>{children}</li>,
 
   // Code
-  preformatted: ({ children }) => <pre>{children}</pre>,
+  preformatted: ({ node }) => <CodeBlock node={node} />,
 
   // Link
   hyperlink: ({ children, node }) => (
@@ -52,12 +89,14 @@ export const richTextComponents: JSXMapSerializer = {
     if (node.oembed.type === 'link') {
       return <iframe src={node.oembed.embed_url} />;
     }
+    return null;
   },
 
   label: ({ node, children }) => {
     if (node.data.label === 'codespan') {
       return <code className="bg-red-600">{children}</code>;
     }
+    return null;
   },
 
   // Image
@@ -76,7 +115,7 @@ export const richTextComponents: JSXMapSerializer = {
     return (
       <PrismicNextImage
         field={imageField}
-        className="w-full rounded-md border"
+        className="mx-auto w-full max-w-[720px] rounded-md border"
       />
     );
   },
