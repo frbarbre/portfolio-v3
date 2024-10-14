@@ -10,7 +10,7 @@ DOMAIN_NAME="self-host.frederikbarbre.dk" # replace with your own
 EMAIL="fr.barbre@gmail.com" # replace with your own
 
 # Script Vars
-REPO_URL="https://github.com/frbarbre/next-self-host.git"
+REPO_URL="https://github.com/frbarbre/portfolio-v3.git"
 APP_DIR=~/myapp
 SWAP_SIZE="1G"  # Swap size of 1GB
 
