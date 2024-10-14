@@ -16,9 +16,9 @@ else
 fi
 
 # Build and restart the Docker containers from the app directory (~/myapp)
-echo "Rebuilding and restarting Docker containers..."
+echo "Rebuilding and restarting Docker containers without cache..."
 sudo docker-compose down
-sudo docker-compose up --build -d
+sudo docker-compose up --build --no-cache -d
 
 # Check if Docker Compose started correctly
 if ! sudo docker-compose ps | grep "Up"; then
