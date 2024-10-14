@@ -15,10 +15,14 @@ else
   cd $APP_DIR
 fi
 
-# Build and restart the Docker containers from the app directory (~/myapp)
-echo "Rebuilding and restarting Docker containers without cache..."
+# Rebuild the Docker images without using cache
+echo "Building Docker containers without cache..."
+sudo docker-compose build --no-cache
+
+# Restart the Docker containers after the build
+echo "Rebuilding and restarting Docker containers..."
 sudo docker-compose down
-sudo docker-compose up --build --no-cache -d
+sudo docker-compose up -d
 
 # Check if Docker Compose started correctly
 if ! sudo docker-compose ps | grep "Up"; then
@@ -28,4 +32,3 @@ fi
 
 # Output final message
 echo "Update complete. Your Next.js app has been deployed with the latest changes."
-
