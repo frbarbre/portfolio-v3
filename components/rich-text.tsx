@@ -107,19 +107,23 @@ export const richTextComponents: JSXMapSerializer = {
 
   // Unordered List
   list: ({ children }) => (
-    <ul className="flex list-disc flex-col gap-4 pl-4 text-lg text-foreground/90">
+    <ul className="flex list-disc flex-col gap-4 pl-6 text-lg text-foreground/90">
       {children}
     </ul>
   ),
-  listItem: ({ children }) => <li className="leading-loose">{children}</li>,
+  listItem: ({ children }) => (
+    <li className="pl-1 leading-loose">{children}</li>
+  ),
 
   // Ordered List
   oList: ({ children }) => (
-    <ol className="flex list-decimal flex-col gap-4 pl-4 text-lg text-foreground/90">
+    <ol className="flex list-decimal flex-col gap-4 pl-7 text-lg text-foreground/90">
       {children}
     </ol>
   ),
-  oListItem: ({ children }) => <li className="leading-loose">{children}</li>,
+  oListItem: ({ children }) => (
+    <li className="pl-1 leading-loose">{children}</li>
+  ),
 
   // Code
   preformatted: ({ node }) => <CodeBlock node={node} />,
