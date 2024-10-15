@@ -1,43 +1,86 @@
+import { customTheme } from '@/utils/prism-theme';
 import { ImageFieldImage, RichTextField } from '@prismicio/client';
 import { PrismicNextImage } from '@prismicio/next';
+import { Highlight, HighlightProps } from 'prism-react-renderer';
 import {
   JSXMapSerializer,
   PrismicLink,
   PrismicRichText,
 } from '@prismicio/react';
-import { Highlight, HighlightProps, themes } from 'prism-react-renderer';
+import { useState } from 'react';
+import { Button } from './ui/button';
+import { Check, Copy } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const HighlightWrapper = (props: HighlightProps) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(props.code).then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+    });
+  };
+
   return (
-    <Highlight {...props}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
-          className={`${className} overflow-auto rounded border p-4`}
-          style={style}
-        >
-          {tokens.map((line, i) => (
-            <div key={i} {...getLineProps({ line })}>
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
+    <div className="relative">
+      <Highlight {...props}>
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <pre
+            className={`${className} relative overflow-auto rounded-lg border p-4`}
+            style={style}
+          >
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+
+            {/* Copy button */}
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={handleCopy}
+                    variant={'outline'}
+                    size={'icon'}
+                    className="absolute right-4 top-4"
+                  >
+                    {isCopied ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="font-sans">
+                    {isCopied ? 'Copied!' : 'Copy to clipboard'}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </pre>
+        )}
+      </Highlight>
+    </div>
   );
 };
 
 const CodeBlock = ({ node }: { node: any }) => {
   const code = node.text || '';
-  const language = node.spans[0]?.data?.label || 'javascript';
+  const language = node.spans[0]?.data?.label || 'typescript';
 
   return (
-    <HighlightWrapper
-      theme={themes.synthwave84}
-      code={code}
-      language={language}
-    >
+    <HighlightWrapper theme={customTheme} code={code} language={language}>
       {code}
     </HighlightWrapper>
   );
@@ -45,38 +88,45 @@ const CodeBlock = ({ node }: { node: any }) => {
 
 export const richTextComponents: JSXMapSerializer = {
   // Headings
-  heading1: ({ children }) => (
-    <h1 className="text-4xl font-bold">{children}</h1>
-  ),
   heading2: ({ children }) => (
-    <h2 className="mt-8 text-xl font-bold">{children}</h2>
+    <h2 className="text-4xl font-bold">{children}</h2>
   ),
-  heading3: ({ children }) => <h3 className="text-lg font-bold">{children}</h3>,
-  heading4: ({ children }) => <h4 className="text-md font-bold">{children}</h4>,
-  heading5: ({ children }) => <h5 className="text-sm font-bold">{children}</h5>,
-  heading6: ({ children }) => <h6 className="text-xs font-bold">{children}</h6>,
+  heading3: ({ children }) => (
+    <h3 className="text-3xl font-bold">{children}</h3>
+  ),
+  heading4: ({ children }) => (
+    <h4 className="text-2xl font-bold">{children}</h4>
+  ),
 
   // Paragraph
   paragraph: ({ children }) => (
-    <p className="whitespace-pre-line">{children}</p>
+    <p className="whitespace-pre-line text-lg leading-loose text-foreground/90">
+      {children}
+    </p>
   ),
 
   // Unordered List
-  list: ({ children }) => <ul className="list-inside list-disc">{children}</ul>,
-  listItem: ({ children }) => <li>{children}</li>,
+  list: ({ children }) => (
+    <ul className="flex list-disc flex-col gap-4 pl-4 text-lg text-foreground/90">
+      {children}
+    </ul>
+  ),
+  listItem: ({ children }) => <li className="leading-loose">{children}</li>,
 
   // Ordered List
   oList: ({ children }) => (
-    <ol className="list-inside list-decimal">{children}</ol>
+    <ol className="flex list-decimal flex-col gap-4 pl-4 text-lg text-foreground/90">
+      {children}
+    </ol>
   ),
-  oListItem: ({ children }) => <li>{children}</li>,
+  oListItem: ({ children }) => <li className="leading-loose">{children}</li>,
 
   // Code
   preformatted: ({ node }) => <CodeBlock node={node} />,
 
   // Link
   hyperlink: ({ children, node }) => (
-    <PrismicLink field={node.data} className="underline">
+    <PrismicLink field={node.data} className="text-foreground underline">
       {children}
     </PrismicLink>
   ),
@@ -89,8 +139,21 @@ export const richTextComponents: JSXMapSerializer = {
     if (node.oembed.type === 'link') {
       return <iframe src={node.oembed.embed_url} />;
     }
+
+    if (node.oembed.type === 'video') {
+      console.log(node.oembed);
+      if (node.oembed.provider_name === 'YouTube') {
+        console.log(node.oembed);
+        const src = `https://www.youtube.com/embed/${node.oembed.embed_url.split('?v=')[1]}?feature=oembed`;
+        return (
+          <iframe src={src} className="aspect-video w-full rounded-md border" />
+        );
+      }
+    }
     return null;
   },
+
+  strong: ({ children }) => <strong>{children}</strong>,
 
   label: ({ node, children }) => {
     if (node.data.label === 'codespan') {
@@ -115,7 +178,7 @@ export const richTextComponents: JSXMapSerializer = {
     return (
       <PrismicNextImage
         field={imageField}
-        className="mx-auto w-full max-w-[720px] rounded-md border"
+        className="w-full rounded-md border"
       />
     );
   },

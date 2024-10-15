@@ -28,7 +28,7 @@
             "placeholder": ""
           }
         },
-        "fullwidth": {
+        "full_width": {
           "type": "Boolean",
           "config": {
             "label": "Full Width",

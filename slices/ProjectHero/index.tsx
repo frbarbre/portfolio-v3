@@ -20,7 +20,7 @@ const ProjectHero = ({ slice }: ProjectHeroProps): JSX.Element => {
     >
       <div className="mb-12 mt-6 flex flex-col-reverse justify-between gap-2 text-[36px] font-bold uppercase leading-none tracking-tight xs:flex-row xs:items-end xs:text-[42px] sm:gap-4 sm:text-[56px] md:flex-row md:gap-6 md:text-[72px] lg:text-[92px]">
         <div className="overflow-hidden">
-          <m.h2
+          <m.h1
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             transition={{
@@ -32,11 +32,11 @@ const ProjectHero = ({ slice }: ProjectHeroProps): JSX.Element => {
             className="relative z-10"
           >
             {slice.primary.title}
-          </m.h2>
+          </m.h1>
         </div>
 
         <div className="overflow-hidden">
-          <m.h3
+          <m.h2
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             transition={{
@@ -49,7 +49,7 @@ const ProjectHero = ({ slice }: ProjectHeroProps): JSX.Element => {
             className="relative z-10"
           >
             {slice.primary.year}
-          </m.h3>
+          </m.h2>
         </div>
       </div>
 

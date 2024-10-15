@@ -19,6 +19,7 @@ export type AboutProps = SliceComponentProps<Content.AboutSlice>;
  * Component for "About" Slices.
  */
 const About = ({ slice }: AboutProps): JSX.Element => {
+  console.log(slice.primary);
   return (
     <m.section
       initial={{ opacity: 0 }}
@@ -28,8 +29,7 @@ const About = ({ slice }: AboutProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className={cn(
         'relative grid gap-6 lg:grid-cols-layout',
-        // @ts-ignore
-        !slice.primary.full_width && 'mr-[238px]',
+        !slice.primary.full_width && 'lg:mr-[238px]',
       )}
     >
       <h2 className="relative z-10 font-medium text-foreground/60 lg:text-foreground">

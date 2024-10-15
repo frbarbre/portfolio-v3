@@ -19,9 +19,9 @@
 				"value": "studied",
 				"type": "Text"
 			},
-			"fullwidth": {
+			"full_width": {
 				"__TYPE__": "BooleanContent",
-				"value": true
+				"value": false
 			}
 		},
 		"items": []

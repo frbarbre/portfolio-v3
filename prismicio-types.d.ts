@@ -377,10 +377,10 @@ export interface AboutSliceDefaultPrimary {
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: true
-   * - **API ID Path**: about.default.primary.fullwidth
+   * - **API ID Path**: about.default.primary.full_width
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
-  fullwidth: prismic.BooleanField;
+  full_width: prismic.BooleanField;
 }
 
 /**
