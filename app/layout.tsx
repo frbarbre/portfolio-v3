@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import LenisProvider from '@/components/lenis-provider';
 import { PrismicPreview } from '@prismicio/next';
+import ScrollUp from '@/components/scroll-up';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} dark`}>
+        <ScrollUp />
         <div className="mx-auto max-w-8xl overflow-x-hidden px-4 md:px-6 lg:px-8">
           <LenisProvider>
             <Navbar data={navbar} />
