@@ -1,9 +1,6 @@
 #!/bin/bash
 
 # Env Vars
-# POSTGRES_USER="myuser"
-# POSTGRES_PASSWORD=$(openssl rand -base64 12)  # Generate a random 12-character password
-# POSTGRES_DB="mydatabase"
 SECRET_KEY="my-secret" # for the demo app
 NEXT_PUBLIC_SAFE_KEY="safe-key" # for the demo app
 DOMAIN_NAME="self-host.frederikbarbre.dk" # replace with your own
@@ -69,19 +66,6 @@ else
   git clone $REPO_URL $APP_DIR
   cd $APP_DIR
 fi
-
-# For Docker internal communication ("db" is the name of Postgres container)
-# DATABASE_URL="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@db:5432/$POSTGRES_DB"
-
-# For external tools (like Drizzle Studio)
-# DATABASE_URL_EXTERNAL="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB"
-
-# Create the .env file inside the app directory (~/myapp/.env)
-# echo "POSTGRES_USER=$POSTGRES_USER" > "$APP_DIR/.env"
-# echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> "$APP_DIR/.env"
-# echo "POSTGRES_DB=$POSTGRES_DB" >> "$APP_DIR/.env"
-# echo "DATABASE_URL=$DATABASE_URL" >> "$APP_DIR/.env"
-# echo "DATABASE_URL_EXTERNAL=$DATABASE_URL_EXTERNAL" >> "$APP_DIR/.env"
 
 # These are just for the demo of env vars
 echo "SECRET_KEY=$SECRET_KEY" >> "$APP_DIR/.env"
