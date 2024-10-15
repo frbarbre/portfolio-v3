@@ -19,7 +19,6 @@ export type AboutProps = SliceComponentProps<Content.AboutSlice>;
  * Component for "About" Slices.
  */
 const About = ({ slice }: AboutProps): JSX.Element => {
-  console.log(slice.primary);
   return (
     <m.section
       initial={{ opacity: 0 }}

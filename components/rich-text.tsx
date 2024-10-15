@@ -141,9 +141,7 @@ export const richTextComponents: JSXMapSerializer = {
     }
 
     if (node.oembed.type === 'video') {
-      console.log(node.oembed);
       if (node.oembed.provider_name === 'YouTube') {
-        console.log(node.oembed);
         const src = `https://www.youtube.com/embed/${node.oembed.embed_url.split('?v=')[1]}?feature=oembed`;
         return (
           <iframe src={src} className="aspect-video w-full rounded-md border" />
