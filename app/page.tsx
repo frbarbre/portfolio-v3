@@ -13,6 +13,7 @@ export default async function Page() {
 
   return (
     <>
+      <pre>{JSON.stringify(error, null, 2)}</pre>
       <pre>{JSON.stringify(hello, null, 2)}</pre>
       <SliceZone slices={page.data.slices} components={components} />
     </>
