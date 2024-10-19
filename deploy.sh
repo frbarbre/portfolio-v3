@@ -3,7 +3,9 @@
 # Env Vars
 SECRET_KEY="my-secret" # for the demo app
 NEXT_PUBLIC_SAFE_KEY="safe-key" # for the demo app
-DOMAIN_NAME="self-host.frederikbarbre.dk" # replace with your own
+NEXT_PUBLIC_SUPABASE_URL=http://localhost:8000
+SUPABASE_SERVICE_ROLE_KEY="your-service-role-key" # replace with your own
+DOMAIN_NAME="frederikbarbre.dk" # replace with your own
 EMAIL="fr.barbre@gmail.com" # replace with your own
 
 # Script Vars
@@ -70,6 +72,8 @@ fi
 # These are just for the demo of env vars
 echo "SECRET_KEY=$SECRET_KEY" >> "$APP_DIR/.env"
 echo "NEXT_PUBLIC_SAFE_KEY=$NEXT_PUBLIC_SAFE_KEY" >> "$APP_DIR/.env"
+echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" >> "$APP_DIR/.env"
+echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> "$APP_DIR/.env"
 
 # Install Nginx
 sudo apt install nginx -y

@@ -19,6 +19,8 @@ const Hero = async ({ slice }: HeroProps): Promise<JSX.Element> => {
     splitWords,
   );
 
+  console.log(slice);
+
   return (
     <section
       data-slice-type={slice.slice_type}

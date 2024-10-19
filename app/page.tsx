@@ -3,12 +3,20 @@ import { SliceZone } from '@prismicio/react';
 
 import { createClient } from '@/prismicio';
 import { components } from '@/slices';
+import { supabase } from '@/lib/supabase';
 
 export default async function Page() {
   const client = createClient();
   const page = await client.getSingle('home');
 
-  return <SliceZone slices={page.data.slices} components={components} />;
+  let { data: hello, error } = await supabase.from('hello').select('*');
+
+  return (
+    <>
+      <pre>{JSON.stringify(hello, null, 2)}</pre>
+      <SliceZone slices={page.data.slices} components={components} />
+    </>
+  );
 }
 
 export async function generateMetadata(): Promise<Metadata> {
