@@ -4,18 +4,16 @@ import { SliceZone } from '@prismicio/react';
 import { createClient } from '@/prismicio';
 import { components } from '@/slices';
 import { supabase } from '@/lib/supabase';
+import Chat from '@/components/chat';
 
 export default async function Page() {
   const client = createClient();
   const page = await client.getSingle('home');
 
-  let { data: hello, error } = await supabase.from('hello').select('*');
-
   return (
     <>
-      <pre>{JSON.stringify(error, null, 2)}</pre>
-      <pre>{JSON.stringify(hello, null, 2)}</pre>
-      <SliceZone slices={page.data.slices} components={components} />
+      <Chat />
+      {/* <SliceZone slices={page.data.slices} components={components} /> */}
     </>
   );
 }
