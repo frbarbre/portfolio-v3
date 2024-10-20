@@ -38,6 +38,5 @@ export const customTheme: PrismTheme = {
         color: 'oklch(69.36% 0.2223 3.91)',
       },
     },
-    // Add more types as needed
   ],
 };

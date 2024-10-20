@@ -53,9 +53,11 @@ const About = ({ slice }: AboutProps): JSX.Element => {
               return (
                 <div
                   key={i}
-                  className="flex items-center justify-between border-b py-10 first:border-t"
+                  className="flex flex-col justify-between gap-2 border-b py-4 first:border-t md:flex-row md:items-center md:py-10"
                 >
-                  <h3 className="font-medium">{item.label}</h3>
+                  <h3 className="font-medium text-foreground/60 md:text-foreground">
+                    {item.label}
+                  </h3>
 
                   {item.text_or_link === 'Text' ? (
                     <p>{item.value}</p>

@@ -101,8 +101,8 @@ function AnimatedAvatar({
 }) {
   const avatarClass =
     size === 'small'
-      ? 'aspect-square min-w-[55px] max-w-[55px]'
-      : 'aspect-square min-w-[120px] max-w-[120px]';
+      ? 'aspect-square min-w-[100px] max-w-[100px]'
+      : 'aspect-square min-w-[55px] max-w-[55px] xs:min-w-[65px] xs:max-w-[65px] sm:min-w-[80px] sm:max-w-[80px] md:min-w-[100px] md:max-w-[100px] lg:min-w-[115px] lg:max-w-[115px]';
 
   return (
     <div

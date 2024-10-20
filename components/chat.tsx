@@ -17,6 +17,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import MarkdownMessage from './markdown-message'; // Import the new component
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -24,19 +25,30 @@ export default function Chat() {
     api: '/ai/api/chat',
   });
 
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = (behavior: 'smooth' | 'auto' | 'instant') => {
+    const interval = setInterval(() => {
+      if (messagesEndRef.current) {
+        console.log('Scrolling to bottom...');
+        messagesEndRef.current.scrollIntoView({ behavior: behavior });
+        clearInterval(interval);
+      }
     }, 100);
   };
 
   useEffect(() => {
+    scrollToBottom('instant');
+  }, [isMinimized, isFullScreen]);
+
+  useEffect(() => {
+    scrollToBottom('smooth');
+  }, [messages]);
+
+  useEffect(() => {
     setIsFullScreen(false);
-    scrollToBottom();
   }, [isMinimized]);
 
   useEffect(() => {
@@ -47,8 +59,6 @@ export default function Chat() {
     }
   }, [isFullScreen]);
 
-  useEffect(scrollToBottom, [messages]);
-
   useEffect(() => {
     const handleScroll = () => {
       if (!isMinimized) {
@@ -57,10 +67,6 @@ export default function Chat() {
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    if (!isMinimized) {
-      scrollToBottom();
-    }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -98,7 +104,7 @@ export default function Chat() {
       )}
     >
       <motion.div
-        initial="default"
+        initial="minimized"
         className="pointer-events-auto"
         onMouseOver={() => {
           document.body.style.overflow = 'hidden';
@@ -170,7 +176,12 @@ export default function Chat() {
               </div>
 
               <div className="flex-1 overflow-y-auto p-4">
-                <div className="space-y-4">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-4"
+                >
                   {messages.map((m) => {
                     const hasContent = m.content.length > 0;
 
@@ -188,13 +199,14 @@ export default function Chat() {
                           transition={{ duration: 0.2 }}
                         >
                           <div
-                            className={`max-w-[80%] rounded-xl px-3 py-2.5 ${
+                            className={`max-w-[90%] rounded-xl px-3 py-2.5 ${
                               m.role === 'user'
                                 ? 'bg-primary text-primary-foreground'
                                 : 'bg-muted'
                             }`}
                           >
-                            <p className="whitespace-pre-wrap">{m.content}</p>
+                            {/* Use MarkdownMessage to render markdown */}
+                            <MarkdownMessage content={m.content} />
                           </div>
                         </motion.div>
                       );
@@ -222,7 +234,7 @@ export default function Chat() {
                     }
                   })}
                   <div ref={messagesEndRef} />
-                </div>
+                </motion.div>
               </div>
 
               <motion.form
@@ -236,6 +248,11 @@ export default function Chat() {
                     value={input}
                     placeholder="Ask me about Frederik Barbre..."
                     onChange={handleInputChange}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        handleSubmit(e);
+                      }
+                    }}
                     className="flex-1 resize-none rounded-lg border-none"
                     rows={3}
                   />
