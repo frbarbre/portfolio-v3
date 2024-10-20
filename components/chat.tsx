@@ -44,7 +44,7 @@ export default function Chat() {
   }, [isMinimized, isFullScreen]);
 
   useEffect(() => {
-    scrollToBottom('smooth');
+    scrollToBottom('instant');
   }, [messages]);
 
   useEffect(() => {
