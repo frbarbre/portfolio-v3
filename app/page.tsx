@@ -1,19 +1,18 @@
-import { Metadata } from 'next';
 import { SliceZone } from '@prismicio/react';
-
+import { Metadata } from 'next';
+import Chat from '@/components/chat';
 import { createClient } from '@/prismicio';
 import { components } from '@/slices';
-import { supabase } from '@/lib/supabase';
-import Chat from '@/components/chat';
 
 export default async function Page() {
   const client = createClient();
   const page = await client.getSingle('home');
+  const isDev = process.env.NODE_ENV === 'development';
 
   return (
     <>
-      <Chat />
-      {/* <SliceZone slices={page.data.slices} components={components} /> */}
+      {isDev && <Chat />}
+      <SliceZone slices={page.data.slices} components={components} />
     </>
   );
 }

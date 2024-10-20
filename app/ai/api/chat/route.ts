@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 ALWAYS use the getInformation tool to check your knowledge base before answering any questions.
 If the user provides new information or asks to remember something, ALWAYS use the addResource tool to add it to the knowledge base.
 Only respond to questions using information from the getInformation tool calls.
-If no relevant information is found after using getInformation, respond, "I don't have any relevant information about that in my knowledge base."`,
+If no relevant information is found after using getInformation, respond, something you come up with.`,
     tools: {
       addResource: tool({
         description: `ALWAYS use this tool to add new information to your knowledge base.
