@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   Maximize2,
   MessageCircle,
+  Minimize2,
   Minus,
   Send,
   Sparkle,
@@ -35,6 +36,7 @@ export default function Chat() {
 
   useEffect(() => {
     setIsFullScreen(false);
+    scrollToBottom();
   }, [isMinimized]);
 
   useEffect(() => {
@@ -122,10 +124,10 @@ export default function Chat() {
               transition={{ duration: 0.2 }}
             >
               <Button
-                className="h-14 w-14 rounded-full shadow-lg"
+                className="h-14 w-14 rounded-full bg-purple-500 shadow-lg hover:bg-purple-600"
                 onClick={() => setIsMinimized(false)}
               >
-                <MessageCircle className="h-6 w-6" />
+                <MessageCircle className="h-5 w-5 fill-white text-white" />
               </Button>
             </motion.div>
           ) : (
@@ -158,7 +160,11 @@ export default function Chat() {
                     className="h-8 w-8 p-0"
                     onClick={() => setIsFullScreen(!isFullScreen)}
                   >
-                    <Maximize2 className="h-3.5 w-3.5" />
+                    {!isFullScreen ? (
+                      <Maximize2 className="h-3.5 w-3.5" />
+                    ) : (
+                      <Minimize2 className="h-3.5 w-3.5" />
+                    )}
                   </Button>
                 </div>
               </div>
@@ -194,24 +200,26 @@ export default function Chat() {
                       );
                     }
 
-                    return (
-                      <motion.div
-                        key={m.id}
-                        className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div>
-                          <p className="whitespace-pre-wrap">
-                            <span className="flex items-center gap-2 text-sm font-light text-foreground/60">
-                              <Wrench className="h-3.5 w-3.5" />
-                              {'Calling tool: ' + toolName}
-                            </span>
-                          </p>
-                        </div>
-                      </motion.div>
-                    );
+                    if (toolName) {
+                      return (
+                        <motion.div
+                          key={m.id}
+                          className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div>
+                            <p className="whitespace-pre-wrap">
+                              <span className="flex items-center gap-2 text-sm font-light text-foreground/60">
+                                <Wrench className="h-3.5 w-3.5" />
+                                {'Calling tool: ' + toolName}
+                              </span>
+                            </p>
+                          </div>
+                        </motion.div>
+                      );
+                    }
                   })}
                   <div ref={messagesEndRef} />
                 </div>
