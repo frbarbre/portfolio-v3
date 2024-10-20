@@ -33,7 +33,7 @@ export default function Hero({
             viewport={{ once: true }}
           >
             <PrismicNextImage
-              className="relative z-10 aspect-square min-w-[100px] max-w-[100px] rounded-full rounded-bl-none object-cover"
+              className="relative z-10 aspect-square min-w-[120px] max-w-[120px] rounded-full rounded-bl-none bg-[#EAEAEA] object-cover"
               field={slice.primary.avatar}
             />
           </m.div>
@@ -72,7 +72,7 @@ export default function Hero({
             className="relative z-10"
           >
             <PrismicNextImage
-              className="aspect-square min-w-[55px] max-w-[55px] rounded-full rounded-bl-none object-cover xs:min-w-[65px] xs:max-w-[65px] sm:min-w-[80px] sm:max-w-[80px] md:min-w-[100px] md:max-w-[100px] lg:min-w-[115px] lg:max-w-[115px]"
+              className="aspect-square min-w-[55px] max-w-[55px] rounded-full rounded-bl-none bg-[#EAEAEA] object-cover xs:min-w-[65px] xs:max-w-[65px] sm:min-w-[80px] sm:max-w-[80px] md:min-w-[100px] md:max-w-[100px] lg:min-w-[115px] lg:max-w-[115px]"
               field={slice.primary.avatar}
             />
           </m.div>
@@ -120,7 +120,7 @@ export default function Hero({
         }}
         viewport={{ once: true }}
       >
-        <h3 className="relative z-10 text-balance text-[28px] font-medium leading-relaxed xs:max-w-[560px] sm:max-w-[680px] sm:tracking-tight md:max-w-[760px] md:text-[32px] lg:max-w-[940px] lg:text-[40px]">
+        <h3 className="relative z-10 text-balance text-[24px] font-medium leading-relaxed xs:max-w-[560px] sm:max-w-[680px] sm:tracking-tight md:max-w-[760px] md:text-[32px] lg:max-w-[940px] lg:text-[40px]">
           {taglineArr.map((tagline, i) => {
             const icon = slice.primary.icons[i - 1];
 

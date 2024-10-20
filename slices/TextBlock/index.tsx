@@ -40,7 +40,7 @@ const About = ({ slice }: AboutProps): JSX.Element => {
           components={(type, node, content, children) => {
             if (type === 'paragraph') {
               return (
-                <p className="relative z-10 text-[28px] font-medium lg:text-[35px]">
+                <p className="relative z-10 text-[24px] font-medium lg:text-[35px]">
                   {children}
                 </p>
               );
