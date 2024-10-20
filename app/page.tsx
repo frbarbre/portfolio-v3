@@ -9,12 +9,7 @@ export default async function Page() {
   const page = await client.getSingle('home');
   const isDev = process.env.NODE_ENV === 'development';
 
-  return (
-    <>
-      <Chat />
-      <SliceZone slices={page.data.slices} components={components} />
-    </>
-  );
+  return <SliceZone slices={page.data.slices} components={components} />;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

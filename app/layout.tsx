@@ -5,6 +5,7 @@ import { createClient, repositoryName } from '@/prismicio';
 import { PrismicPreview } from '@prismicio/next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Chat from '@/components/chat';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +28,8 @@ export default async function RootLayout({
               {children}
               <Footer footer={footer} />
             </div>
+
+            <Chat />
             <PrismicPreview repositoryName={repositoryName} />
           </div>
         </ScrollProvider>
