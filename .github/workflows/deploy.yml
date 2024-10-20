@@ -1,0 +1,17 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger webhook
+        run: |
+          curl -X POST https://webhook.frederikbarbre.dk/webhook \
+          -H "Content-Type: application/json" \
+          --data '{"ref": "${{ github.ref }}", "repository": "${{ github.repository }}", "pusher": "${{ github.actor }}"}'
