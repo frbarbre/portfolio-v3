@@ -11,7 +11,7 @@ export default async function Page() {
 
   return (
     <>
-      {isDev && <Chat />}
+      <Chat />
       <SliceZone slices={page.data.slices} components={components} />
     </>
   );
