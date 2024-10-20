@@ -1,5 +1,5 @@
 export default function getToolName(name: string | undefined): string | null {
-  if (name === 'addRessource') {
+  if (name === 'addResource') {
     return 'Add Ressource';
   }
   if (name === 'getInformation') {
