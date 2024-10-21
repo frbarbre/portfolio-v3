@@ -17,13 +17,14 @@ import {
   Wrench,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import MarkdownMessage from './markdown-message'; // Import the new component
+import MarkdownMessage from './markdown-message';
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    maxSteps: 3,
-    api: '/ai/api/chat',
-  });
+export default function EnhancedChat() {
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat({
+      maxSteps: 3,
+      api: '/ai/api/chat',
+    });
 
   const [isMinimized, setIsMinimized] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -32,7 +33,6 @@ export default function Chat() {
   const scrollToBottom = (behavior: 'smooth' | 'auto' | 'instant') => {
     const interval = setInterval(() => {
       if (messagesEndRef.current) {
-        console.log('Scrolling to bottom...');
         messagesEndRef.current.scrollIntoView({ behavior: behavior });
         clearInterval(interval);
       }
@@ -94,6 +94,11 @@ export default function Chat() {
       height: '100%',
       borderRadius: 0,
     },
+  };
+
+  const messageVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
   };
 
   return (
@@ -182,57 +187,86 @@ export default function Chat() {
                   transition={{ duration: 0.3 }}
                   className="space-y-4"
                 >
-                  {messages.map((m) => {
-                    const hasContent = m.content.length > 0;
+                  <AnimatePresence>
+                    {messages.map((m, index) => {
+                      const hasContent = m.content.length > 0;
+                      const toolName = getToolName(
+                        m?.toolInvocations?.[0].toolName,
+                      );
 
-                    const toolName = getToolName(
-                      m?.toolInvocations?.[0].toolName,
-                    );
-
-                    if (hasContent) {
-                      return (
-                        <motion.div
-                          key={m.id}
-                          className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <div
-                            className={`max-w-[90%] rounded-xl px-3 py-2.5 ${
-                              m.role === 'user'
-                                ? 'bg-primary text-primary-foreground'
-                                : 'bg-muted'
-                            }`}
+                      if (hasContent) {
+                        return (
+                          <motion.div
+                            key={m.id}
+                            className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                            variants={messageVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                            transition={{ duration: 0.2 }}
                           >
-                            {/* Use MarkdownMessage to render markdown */}
-                            <MarkdownMessage content={m.content} />
-                          </div>
-                        </motion.div>
-                      );
-                    }
+                            <div
+                              className={`max-w-[90%] rounded-xl px-3 py-2.5 ${
+                                m.role === 'user'
+                                  ? 'bg-primary text-primary-foreground'
+                                  : 'bg-muted'
+                              }`}
+                            >
+                              <MarkdownMessage content={m.content} />
+                            </div>
+                          </motion.div>
+                        );
+                      }
 
-                    if (toolName) {
-                      return (
-                        <motion.div
-                          key={m.id}
-                          className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <div>
-                            <p className="whitespace-pre-wrap">
-                              <span className="flex items-center gap-2 text-sm font-light text-foreground/60">
-                                <Wrench className="h-3.5 w-3.5" />
-                                {'Calling tool: ' + toolName}
+                      if (toolName) {
+                        return (
+                          <motion.div
+                            key={m.id}
+                            className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                            variants={messageVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div>
+                              <p className="whitespace-pre-wrap">
+                                <span className="flex items-center gap-2 text-sm font-light text-foreground/60">
+                                  <Wrench className="h-3.5 w-3.5" />
+                                  {'Calling tool: ' + toolName}
+                                </span>
+                              </p>
+                            </div>
+                          </motion.div>
+                        );
+                      }
+
+                      // Show loading indicator only for the last empty message
+                      if (isLoading && index === messages.length - 1) {
+                        return (
+                          <motion.div
+                            key="typing"
+                            className="flex justify-start"
+                            variants={messageVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="max-w-[90%] rounded-xl bg-muted px-3 py-2.5">
+                              <span className="typing-indicator">
+                                <span>●</span>
+                                <span>●</span>
+                                <span>●</span>
                               </span>
-                            </p>
-                          </div>
-                        </motion.div>
-                      );
-                    }
-                  })}
+                            </div>
+                          </motion.div>
+                        );
+                      }
+
+                      return null;
+                    })}
+                  </AnimatePresence>
                   <div ref={messagesEndRef} />
                 </motion.div>
               </div>
