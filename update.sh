@@ -2,7 +2,7 @@
 
 # Script Vars
 REPO_URL="https://github.com/frbarbre/portfolio-v3.git"
-APP_DIR=~portfolio/myapp
+APP_DIR=~/portfolio/myapp
 
 # Pull the latest changes from the Git repository
 if [ -d "$APP_DIR" ]; then

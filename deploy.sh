@@ -10,7 +10,7 @@ EMAIL="fr.barbre@gmail.com" # replace with your own
 
 # Script Vars
 REPO_URL="https://github.com/frbarbre/portfolio-v3.git"
-APP_DIR=~portfolio/myapp
+APP_DIR=~/portfolio/myapp
 SWAP_SIZE="1G"  # Swap size of 1GB
 
 # Update package list and upgrade existing packages
