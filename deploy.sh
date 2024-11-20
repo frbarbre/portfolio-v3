@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Env Vars
-SECRET_KEY="my-secret" # for the demo app
-NEXT_PUBLIC_SAFE_KEY="safe-key" # for the demo app
 NEXT_PUBLIC_SUPABASE_URL=http://localhost:8000
 SUPABASE_SERVICE_ROLE_KEY="your-service-role-key" # replace with your own
+OPENAI_API_KEY="your-openai-api-key" # replace with your own
+NOTION_TOKEN="your-notion-token" # replace with your own
 DOMAIN_NAME="frederikbarbre.dk" # replace with your own
 EMAIL="fr.barbre@gmail.com" # replace with your own
 
 # Script Vars
 REPO_URL="https://github.com/frbarbre/portfolio-v3.git"
-APP_DIR=~/myapp
+APP_DIR=~portfolio/myapp
 SWAP_SIZE="1G"  # Swap size of 1GB
 
 # Update package list and upgrade existing packages
@@ -70,10 +70,10 @@ else
 fi
 
 # These are just for the demo of env vars
-echo "SECRET_KEY=$SECRET_KEY" >> "$APP_DIR/.env"
-echo "NEXT_PUBLIC_SAFE_KEY=$NEXT_PUBLIC_SAFE_KEY" >> "$APP_DIR/.env"
 echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" >> "$APP_DIR/.env"
 echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" >> "$APP_DIR/.env"
+echo "OPENAI_API_KEY=$OPENAI_API_KEY" >> "$APP_DIR/.env"
+echo "NOTION_TOKEN=$NOTION_TOKEN" >> "$APP_DIR/.env"
 
 # Install Nginx
 sudo apt install nginx -y
@@ -158,5 +158,8 @@ echo "Deployment complete. Your Next.js app and PostgreSQL database are now runn
 Next.js is available at https://$DOMAIN_NAME, and the PostgreSQL database is accessible from the web service.
 
 The .env file has been created with the following values:
-- SECRET_KEY
-- NEXT_PUBLIC_SAFE_KEY"
+- NEXT_PUBLIC_SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+- OPENAI_API_KEY
+- NOTION_TOKEN
+
