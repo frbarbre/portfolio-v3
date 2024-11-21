@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Trigger webhook
         run: |
-          curl -X POST https://webhook.frederikbarbre.dk/webhook \
+          curl -X POST https://webhook.frederikbarbre.dk/portfolio-webhook \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}" \
           --data '{"ref": "${{ github.ref }}", "repository": "${{ github.repository }}", "pusher": "${{ github.actor }}"}'
