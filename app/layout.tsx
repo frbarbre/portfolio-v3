@@ -29,7 +29,7 @@ export default async function RootLayout({
               <Footer footer={footer} />
             </div>
 
-            <div className="hidden md:block">
+            <div>
               <Chat />
             </div>
             <PrismicPreview repositoryName={repositoryName} />
