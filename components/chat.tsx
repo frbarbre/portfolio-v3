@@ -287,7 +287,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
                         handleSubmit(e);
                       }
                     }}
-                    className="flex-1 resize-none rounded-lg border-none"
+                    className="flex-1 resize-none rounded-lg border-none text-base"
                     rows={3}
                   />
                   <div className="flex w-full justify-between">

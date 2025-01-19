@@ -22,6 +22,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+      </head>
       <body className={`${inter.className} dark`}>
         <ScrollProvider>
           <div className="mx-auto max-w-8xl overflow-x-hidden px-4 md:px-6 lg:px-8">
