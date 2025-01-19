@@ -53,11 +53,12 @@ const ProjectHero = ({ slice }: ProjectHeroProps): JSX.Element => {
         </div>
       </div>
 
-      <div className="aspect-video w-full overflow-hidden rounded-md border border-border">
+      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border">
         <video
           autoPlay
           muted
           loop
+          playsInline
           //@ts-ignore
           src={slice.primary.content.url}
         />

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import MarkdownMessage from './markdown-message'; // Import the new component
+import useMobile from '@/hooks/useMobile';
 
 export default function Chat({ data }: { data: ChatDocument<string> }) {
   const {
@@ -37,6 +38,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const isMobile = useMobile();
 
   const scrollToBottom = (behavior: 'smooth' | 'auto' | 'instant') => {
     const interval = setInterval(() => {
@@ -67,6 +69,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
   useEffect(() => {
     const handleScroll = () => {
       if (!isMinimized) {
+        if (isMobile) return;
         setIsMinimized(true);
       }
     };
@@ -111,14 +114,6 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
       <motion.div
         initial="minimized"
         className="pointer-events-auto"
-        onMouseOver={() => {
-          document.body.style.overflow = 'hidden';
-        }}
-        onMouseLeave={() => {
-          if (!isFullScreen) {
-            document.body.style.overflow = 'auto';
-          }
-        }}
         animate={
           isMinimized ? 'minimized' : isFullScreen ? 'fullscreen' : 'default'
         }
@@ -189,7 +184,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
                 >
                   {messages.length === 0 && (
                     <div className="flex h-full flex-col pl-4 pt-4">
-                      <h2 className="text-2xl font-semibold uppercase tracking-tight">
+                      <h2 className="text-2xl font-semibold tracking-tight">
                         {data.data.title || ''}
                       </h2>
                       <p className="mt-2 text-balance text-sm text-foreground/60">
@@ -198,7 +193,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
 
                       <ul className="mt-4 flex flex-col gap-3">
                         {data.data.default_questions.map((question, index) => (
-                          <li key={index} className={`w-full`}>
+                          <li key={index} className={`w-full cursor-pointer`}>
                             <button
                               onClick={(e) => {
                                 e.preventDefault();
@@ -211,7 +206,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
                                 ]);
                                 reload();
                               }}
-                              className="w-max max-w-[90%] rounded-xl bg-muted px-3 py-2.5"
+                              className="w-max max-w-[90%] cursor-pointer rounded-xl bg-muted px-3 py-2.5 hover:bg-muted/80"
                             >
                               {question.question}
                             </button>

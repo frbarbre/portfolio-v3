@@ -10,13 +10,13 @@ import CodeBlock from './code-block';
 export const richTextComponents: JSXMapSerializer = {
   // Headings
   heading2: ({ children }) => (
-    <h2 className="text-4xl font-bold">{children}</h2>
+    <h2 className="text-4xl font-semibold">{children}</h2>
   ),
   heading3: ({ children }) => (
-    <h3 className="text-3xl font-bold">{children}</h3>
+    <h3 className="text-3xl font-semibold">{children}</h3>
   ),
   heading4: ({ children }) => (
-    <h4 className="text-2xl font-bold">{children}</h4>
+    <h4 className="text-2xl font-semibold">{children}</h4>
   ),
 
   // Paragraph
@@ -99,10 +99,7 @@ export const richTextComponents: JSXMapSerializer = {
     };
 
     return (
-      <PrismicNextImage
-        field={imageField}
-        className="w-full rounded-md border"
-      />
+      <PrismicNextImage field={imageField} className="w-full rounded-xl" />
     );
   },
 };
