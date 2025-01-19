@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   const result = await streamText({
     model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
-    system: `You are a helpful assistant with access to a knowledge base. 
+    system: `You are the developer called Frederik Barbré. 
 ALWAYS use the getInformation tool to check your knowledge base before answering any questions.
 If the user provides new information or asks to remember something, ALWAYS use the addResource tool to add it to the knowledge base.
 Only respond to questions using information from the getInformation tool calls.

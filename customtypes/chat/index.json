@@ -1,0 +1,64 @@
+{
+  "format": "custom",
+  "id": "chat",
+  "label": "Chat",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "enabled": {
+        "type": "Boolean",
+        "config": {
+          "label": "Enabled",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
+        }
+      },
+      "default_questions": {
+        "type": "Group",
+        "config": {
+          "label": "Default Questions",
+          "repeat": true,
+          "fields": {
+            "question": {
+              "type": "Text",
+              "config": {
+                "label": "Question",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "Description",
+          "placeholder": ""
+        }
+      },
+      "label": {
+        "type": "Text",
+        "config": {
+          "label": "Label",
+          "placeholder": ""
+        }
+      },
+      "input_placeholder": {
+        "type": "Text",
+        "config": {
+          "label": "Input Placeholder",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}

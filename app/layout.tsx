@@ -18,6 +18,8 @@ export default async function RootLayout({
 
   const navbar = await client.getSingle('navbar');
   const footer = await client.getSingle('footer');
+  const chat = await client.getSingle('chat');
+
   return (
     <html lang="en">
       <body className={`${inter.className} dark`}>
@@ -29,9 +31,11 @@ export default async function RootLayout({
               <Footer footer={footer} />
             </div>
 
-            <div>
-              <Chat />
-            </div>
+            {chat.data.enabled && (
+              <div>
+                <Chat data={chat} />
+              </div>
+            )}
             <PrismicPreview repositoryName={repositoryName} />
           </div>
         </ScrollProvider>

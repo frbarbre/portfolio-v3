@@ -5,6 +5,107 @@ import type * as prismic from '@prismicio/client';
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 /**
+ * Item in *Chat → Default Questions*
+ */
+export interface ChatDocumentDataDefaultQuestionsItem {
+  /**
+   * Question field in *Chat → Default Questions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: chat.default_questions[].question
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  question: prismic.KeyTextField;
+}
+
+/**
+ * Content for Chat documents
+ */
+interface ChatDocumentData {
+  /**
+   * Enabled field in *Chat*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: chat.enabled
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  enabled: prismic.BooleanField;
+
+  /**
+   * Default Questions field in *Chat*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: chat.default_questions[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  default_questions: prismic.GroupField<
+    Simplify<ChatDocumentDataDefaultQuestionsItem>
+  >;
+
+  /**
+   * Title field in *Chat*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: chat.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Chat*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: chat.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Label field in *Chat*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: chat.label
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Input Placeholder field in *Chat*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: chat.input_placeholder
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  input_placeholder: prismic.KeyTextField;
+}
+
+/**
+ * Chat document from Prismic
+ *
+ * - **API ID**: `chat`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ChatDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<ChatDocumentData>, 'chat', Lang>;
+
+/**
  * Item in *Footer → Links*
  */
 export interface FooterDocumentDataLinksItem {
@@ -261,6 +362,7 @@ export type ProjectDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | ChatDocument
   | FooterDocument
   | HomeDocument
   | NavbarDocument
@@ -1036,6 +1138,9 @@ declare module '@prismicio/client' {
 
   namespace Content {
     export type {
+      ChatDocument,
+      ChatDocumentData,
+      ChatDocumentDataDefaultQuestionsItem,
       FooterDocument,
       FooterDocumentData,
       FooterDocumentDataLinksItem,

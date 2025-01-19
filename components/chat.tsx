@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { ChatDocument } from '@/prismicio-types';
 import getToolName from '@/utils/getToolName';
 import { useChat } from 'ai/react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -19,8 +20,15 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import MarkdownMessage from './markdown-message'; // Import the new component
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+export default function Chat({ data }: { data: ChatDocument<string> }) {
+  const {
+    messages,
+    input,
+    handleInputChange,
+    setMessages,
+    handleSubmit,
+    reload,
+  } = useChat({
     maxSteps: 3,
     api: '/ai/api/chat',
   });
@@ -28,6 +36,7 @@ export default function Chat() {
   const [isMinimized, setIsMinimized] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const scrollToBottom = (behavior: 'smooth' | 'auto' | 'instant') => {
     const interval = setInterval(() => {
@@ -144,7 +153,7 @@ export default function Chat() {
               <div className="flex items-center justify-between border-b py-2 pl-3 pr-2">
                 <h2 className="flex items-center gap-2 text-xs font-semibold">
                   <Stars className="h-4 w-4 fill-purple-500 text-purple-500" />{' '}
-                  AI
+                  {data.data.label}
                 </h2>
                 <div className="flex space-x-2">
                   <Button
@@ -178,6 +187,39 @@ export default function Chat() {
                   transition={{ duration: 0.3 }}
                   className="space-y-4"
                 >
+                  {messages.length === 0 && (
+                    <div className="flex h-full flex-col pl-4 pt-4">
+                      <h2 className="text-2xl font-semibold uppercase tracking-tight">
+                        {data.data.title || ''}
+                      </h2>
+                      <p className="mt-2 text-balance text-sm text-foreground/60">
+                        {data.data.description || ''}
+                      </p>
+
+                      <ul className="mt-4 flex flex-col gap-3">
+                        {data.data.default_questions.map((question, index) => (
+                          <li key={index} className={`w-full`}>
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setMessages([
+                                  {
+                                    id: `default-question-${question.question}`,
+                                    role: 'user' as const,
+                                    content: question.question || '',
+                                  },
+                                ]);
+                                reload();
+                              }}
+                              className="w-max max-w-[90%] rounded-xl bg-muted px-3 py-2.5"
+                            >
+                              {question.question}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   {messages.map((m) => {
                     const hasContent = m.content.length > 0;
 
@@ -238,11 +280,12 @@ export default function Chat() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
+                ref={formRef}
               >
                 <div className="flex flex-col items-end gap-2 border-t p-2">
                   <Textarea
                     value={input}
-                    placeholder="Ask me about Frederik Barbre..."
+                    placeholder={data.data.input_placeholder || ''}
                     onChange={handleInputChange}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) {
