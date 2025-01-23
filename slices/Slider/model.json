@@ -25,29 +25,14 @@
             "label": "Items",
             "repeat": true,
             "fields": {
-              "logo": {
-                "type": "Image",
-                "config": {
-                  "label": "Logo",
-                  "constraint": {},
-                  "thumbnails": []
-                }
-              },
-              "link": {
+              "tech": {
                 "type": "Link",
                 "config": {
-                  "label": "Link",
-                  "placeholder": "",
-                  "select": null
-                }
-              },
-              "should_invert": {
-                "type": "Boolean",
-                "config": {
-                  "label": "Should Invert",
-                  "default_value": false,
-                  "placeholder_true": "true",
-                  "placeholder_false": "false"
+                  "label": "Tech",
+                  "select": "document",
+                  "customtypes": [
+                    "tech"
+                  ]
                 }
               }
             }

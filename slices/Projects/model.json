@@ -51,7 +51,8 @@
                     "Web Application",
                     "Library",
                     "Design",
-                    "Website"
+                    "Website",
+                    "VS Code Extension"
                   ],
                   "default_value": "Web Application"
                 }

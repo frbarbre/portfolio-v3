@@ -361,12 +361,64 @@ export type ProjectDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Content for Tech documents
+ */
+interface TechDocumentData {
+  /**
+   * Link field in *Tech*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tech.link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * Logo field in *Tech*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tech.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Should Invert field in *Tech*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tech.should_invert
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  should_invert: prismic.BooleanField;
+}
+
+/**
+ * Tech document from Prismic
+ *
+ * - **API ID**: `tech`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TechDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<TechDocumentData>, 'tech', Lang>;
+
 export type AllDocumentTypes =
   | ChatDocument
   | FooterDocument
   | HomeDocument
   | NavbarDocument
-  | ProjectDocument;
+  | ProjectDocument
+  | TechDocument;
 
 /**
  * Item in *TextBlock → With Buttons → Primary → Buttons*
@@ -967,7 +1019,7 @@ export interface ProjectsSliceDefaultPrimaryProjectsItem {
    * - **Documentation**: https://prismic.io/docs/field#select
    */
   type: prismic.SelectField<
-    'Web Application' | 'Library' | 'Design' | 'Website',
+    'Web Application' | 'Library' | 'Design' | 'Website' | 'VS Code Extension',
     'filled'
   >;
 }
@@ -1034,35 +1086,14 @@ export type ProjectsSlice = prismic.SharedSlice<
  */
 export interface SliderSliceDefaultPrimaryItemsItem {
   /**
-   * Logo field in *Slider → Default → Primary → Items*
+   * Tech field in *Slider → Default → Primary → Items*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
-   * - **API ID Path**: slider.default.primary.items[].logo
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  logo: prismic.ImageField<never>;
-
-  /**
-   * Link field in *Slider → Default → Primary → Items*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: slider.default.primary.items[].link
+   * - **API ID Path**: slider.default.primary.items[].tech
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  link: prismic.LinkField;
-
-  /**
-   * Should Invert field in *Slider → Default → Primary → Items*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: slider.default.primary.items[].should_invert
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  should_invert: prismic.BooleanField;
+  tech: prismic.ContentRelationshipField<'tech'>;
 }
 
 /**
@@ -1152,6 +1183,8 @@ declare module '@prismicio/client' {
       ProjectDocument,
       ProjectDocumentData,
       ProjectDocumentDataSlicesSlice,
+      TechDocument,
+      TechDocumentData,
       AllDocumentTypes,
       AboutSlice,
       AboutSliceDefaultPrimary,
