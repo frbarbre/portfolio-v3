@@ -24,7 +24,7 @@ const HighlightWrapper = (props: HighlightProps) => {
       <Highlight {...props}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
-            className={`${className} overflow-auto rounded-lg border p-4`}
+            className={`${className} overflow-auto rounded-lg border p-4 lg:max-w-[900px]`}
             style={style}
           >
             {tokens.map((line, i) => (
