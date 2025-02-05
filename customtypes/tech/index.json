@@ -38,6 +38,13 @@
           "placeholder_true": "true",
           "default_value": false
         }
+      },
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Name",
+          "placeholder": ""
+        }
       }
     }
   }

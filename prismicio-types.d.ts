@@ -398,6 +398,17 @@ interface TechDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
   should_invert: prismic.BooleanField;
+
+  /**
+   * Name field in *Tech*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tech.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
 }
 
 /**

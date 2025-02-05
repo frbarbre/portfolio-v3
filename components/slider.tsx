@@ -1,7 +1,12 @@
 'use client';
 
 import Card from '@/components/card';
-import { Content, ImageField, LinkField } from '@prismicio/client';
+import {
+  Content,
+  ImageField,
+  KeyTextField,
+  LinkField,
+} from '@prismicio/client';
 import {
   PrismicImageProps,
   PrismicLinkProps,
@@ -27,10 +32,11 @@ export default function Slider({
     link: LinkField;
     should_invert: boolean;
     logo: ImageField<never>;
+    name: KeyTextField;
   }[];
 }): JSX.Element {
-  const FAST_DURATION = 25;
-  const SLOW_DURATION = 75;
+  const FAST_DURATION = formattedItems.length * 2.5;
+  const SLOW_DURATION = FAST_DURATION * 3;
 
   const [duration, setDuration] = useState(FAST_DURATION);
   let [ref, { width }] = useMeasure();
@@ -103,6 +109,7 @@ export default function Slider({
                 isInverted={item.should_invert}
                 image={item.logo}
                 key={idx}
+                name={item.name}
               />
             ))}
           </div>

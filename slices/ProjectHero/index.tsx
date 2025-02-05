@@ -1,5 +1,6 @@
 'use client';
 
+import VideoPlayer from '@/components/video-player';
 import { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 import { motion as m } from 'framer-motion';
@@ -79,18 +80,13 @@ const ProjectHero = ({ slice }: ProjectHeroProps): JSX.Element => {
           height={1080}
         />
 
-        {/* Video with fade in effect */}
-        <video
-          onLoadedData={() => setIsVideoLoaded(true)}
-          className={`w-full transition-opacity duration-500 ${
-            isVideoLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          autoPlay
-          muted
-          loop
-          playsInline
+        <VideoPlayer
           //@ts-ignore
           src={slice.primary.content.url}
+          onLoadedData={() => setIsVideoLoaded(true)}
+          className={`transition-opacity duration-500 ${
+            isVideoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
       </div>
     </section>

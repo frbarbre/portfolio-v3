@@ -8,12 +8,25 @@ import { motion as m } from 'framer-motion';
 /**
  * Props for `Content`.
  */
-export type ContentProps = SliceComponentProps<ContentT.ContentSlice>;
+export type ContentProps = SliceComponentProps<ContentT.ContentSlice> & {
+  context?: {
+    updated_at?: string;
+  };
+};
 
 /**
  * Component for "Content" Slices.
  */
-const Content = ({ slice }: ContentProps): JSX.Element => {
+const Content = ({ slice, context }: ContentProps): JSX.Element => {
+  const updated_at = context?.updated_at;
+  const formattedDate = updated_at
+    ? new Date(updated_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : null;
+
   return (
     <m.section
       initial={{ opacity: 0 }}
@@ -28,6 +41,11 @@ const Content = ({ slice }: ContentProps): JSX.Element => {
       </h2>
       <div className="-mt-1.5">
         <RichText field={slice.primary.content} />
+        {formattedDate && (
+          <p className="mt-8 text-sm text-foreground/60">
+            Last updated: {formattedDate}
+          </p>
+        )}
       </div>
     </m.section>
   );
