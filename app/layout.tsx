@@ -6,6 +6,7 @@ import { PrismicPreview } from '@prismicio/next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Chat from '@/components/chat';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} dark`}>
+        {/* <ThemeProvider attribute="class" defaultTheme="system"> */}
         <ScrollProvider>
           <div className="mx-auto max-w-8xl overflow-x-hidden px-4 md:px-6 lg:px-8">
             <Navbar data={navbar} />
@@ -45,6 +47,7 @@ export default async function RootLayout({
             <PrismicPreview repositoryName={repositoryName} />
           </div>
         </ScrollProvider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

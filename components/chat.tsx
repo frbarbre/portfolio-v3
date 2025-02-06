@@ -291,10 +291,10 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
                     rows={3}
                   />
                   <div className="flex w-full justify-between">
-                    <Button variant={'ghost'} size={'sm'}>
+                    {/* <Button variant={'ghost'} size={'sm'}>
                       <Sparkle className="mr-2 h-3.5 w-3.5 fill-purple-500 text-purple-500" />
                       Topics
-                    </Button>
+                    </Button> */}
                     <Button
                       type="submit"
                       size="sm"

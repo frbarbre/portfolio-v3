@@ -53,57 +53,93 @@ async function getPageContent(pageId) {
   let allBlocks = [];
   let cursor = undefined;
 
-  while (true) {
-    const { results, next_cursor } = await notion.blocks.children.list({
-      block_id: pageId,
-      start_cursor: cursor,
+  async function getBlockContent(blockId) {
+    const { results } = await notion.blocks.children.list({
+      block_id: blockId,
+      page_size: 100,
+      version: 'latest',
     });
-    allBlocks = allBlocks.concat(results);
-    if (!next_cursor) break;
-    cursor = next_cursor;
-  }
 
-  return allBlocks
-    .map((block) => {
+    let content = [];
+    for (const block of results) {
+      let blockContent = '';
+
+      // Get nested content if it exists
+      let hasChildren = block.has_children;
+      let childContent = '';
+      if (hasChildren) {
+        childContent = await getBlockContent(block.id);
+      }
+
       switch (block.type) {
         case 'paragraph':
-          return block.paragraph.rich_text
+          blockContent = block.paragraph.rich_text
             .map((text) => text.plain_text)
             .join('');
+          break;
         case 'heading_1':
         case 'heading_2':
         case 'heading_3':
-          return `${block[block.type].rich_text
+          blockContent = `${block[block.type].rich_text
             .map((text) => text.plain_text)
             .join('')}\n`;
+          break;
         case 'bulleted_list_item':
         case 'numbered_list_item':
-          return `- ${block[block.type].rich_text
+          blockContent = `- ${block[block.type].rich_text
             .map((text) => text.plain_text)
             .join('')}`;
+          break;
         case 'to_do':
-          return `${block.to_do.checked ? '[x]' : '[ ]'} ${block.to_do.rich_text
+          blockContent = `${block.to_do.checked ? '[x]' : '[ ]'} ${block.to_do.rich_text
             .map((text) => text.plain_text)
             .join('')}`;
+          break;
         case 'toggle':
-          return block.toggle.rich_text.map((text) => text.plain_text).join('');
+          blockContent = block.toggle.rich_text
+            .map((text) => text.plain_text)
+            .join('');
+          break;
         case 'code':
-          return `\`\`\`${block.code.language}\n${block.code.rich_text
+          blockContent = `\`\`\`${block.code.language}\n${block.code.rich_text
             .map((text) => text.plain_text)
             .join('')}\n\`\`\``;
+          break;
         case 'quote':
-          return `> ${block.quote.rich_text
+          blockContent = `> ${block.quote.rich_text
             .map((text) => text.plain_text)
             .join('')}`;
+          break;
         case 'divider':
-          return '---';
+          blockContent = '---';
+          break;
         case 'child_page':
-          return `[Subpage: ${block.child_page.title}]`;
+          blockContent = `[Subpage: ${block.child_page.title}]`;
+          break;
         default:
-          return '';
+          blockContent = '';
       }
-    })
-    .join('\n');
+
+      if (blockContent) {
+        content.push(blockContent);
+        if (hasChildren && childContent) {
+          // Indent child content
+          content.push(
+            childContent
+              .split('\n')
+              .map((line) => `    ${line}`)
+              .join('\n'),
+          );
+        }
+      }
+    }
+
+    return content.join('\n');
+  }
+
+  // Start the recursive process from the main page
+  const content = await getBlockContent(pageId);
+  return content;
 }
 
 function preprocessContent(content) {
@@ -114,6 +150,18 @@ function preprocessContent(content) {
 }
 
 async function generateEmbedding(text) {
+  // Maximum tokens for text-embedding-ada-002 is 8191
+  const MAX_TOKENS = 8000; // Using a slightly lower number to be safe
+  const APPROX_CHARS_PER_TOKEN = 4; // Rough approximation
+  const MAX_CHARS = MAX_TOKENS * APPROX_CHARS_PER_TOKEN;
+
+  if (text.length > MAX_CHARS) {
+    console.warn(
+      `Content too long (${text.length} chars), truncating to ${MAX_CHARS} chars`,
+    );
+    text = text.slice(0, MAX_CHARS);
+  }
+
   const response = await openai.embeddings.create({
     model: 'text-embedding-ada-002',
     input: text,
@@ -122,14 +170,42 @@ async function generateEmbedding(text) {
 }
 
 async function storeInSupabase(title, content, embedding) {
-  const { error } = await supabase
+  // First check if document with this title exists
+  const { data: existingDoc, error: searchError } = await supabase
     .from('documents')
-    .insert({ title, content, embedding });
+    .select('id')
+    .eq('title', title)
+    .single();
 
-  if (error) {
-    console.error('Error inserting document:', error);
+  if (searchError && searchError.code !== 'PGRST116') {
+    // PGRST116 is "not found" error
+    console.error('Error searching for existing document:', searchError);
+    return;
+  }
+
+  if (existingDoc) {
+    // Update existing document
+    const { error: updateError } = await supabase
+      .from('documents')
+      .update({ content, embedding })
+      .eq('id', existingDoc.id);
+
+    if (updateError) {
+      console.error('Error updating document:', updateError);
+    } else {
+      console.log('Document updated successfully:', title);
+    }
   } else {
-    console.log('Document added successfully:', title);
+    // Insert new document
+    const { error: insertError } = await supabase
+      .from('documents')
+      .insert({ title, content, embedding });
+
+    if (insertError) {
+      console.error('Error inserting document:', insertError);
+    } else {
+      console.log('Document added successfully:', title);
+    }
   }
 }
 
@@ -143,6 +219,13 @@ async function main() {
         page.type === 'child_page'
           ? page.child_page.title
           : page.properties.title?.title[0]?.plain_text || 'Untitled';
+
+      // Skip the Portfolio Bot folder
+      if (title === 'Portfolio Bot') {
+        console.log('\nSkipping Portfolio Bot folder');
+        continue;
+      }
+
       console.log(`\nProcessing: ${title}`);
 
       const rawContent = await getPageContent(page.id);

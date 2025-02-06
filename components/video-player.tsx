@@ -7,6 +7,14 @@ import { motion as m } from 'framer-motion';
 import { Expand, Shrink } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
+// Add type declaration for webkit methods
+declare global {
+  interface HTMLVideoElement {
+    webkitEnterFullscreen?: () => void;
+    webkitExitFullscreen?: () => void;
+  }
+}
+
 export default function VideoPlayer({
   src,
   className,
@@ -204,11 +212,16 @@ export default function VideoPlayer({
   }
 
   const toggleFullscreen = async () => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !videoRef.current) return;
 
     try {
       if (!isFullscreen) {
-        if (containerRef.current.requestFullscreen) {
+        // Handle iOS fullscreen
+        if (videoRef.current.webkitEnterFullscreen) {
+          videoRef.current.webkitEnterFullscreen();
+        }
+        // Handle standard fullscreen for other devices
+        else if (containerRef.current.requestFullscreen) {
           await containerRef.current.requestFullscreen();
         } else if ((containerRef.current as any).webkitRequestFullscreen) {
           await (containerRef.current as any).webkitRequestFullscreen();
@@ -218,6 +231,7 @@ export default function VideoPlayer({
           await (containerRef.current as any).msRequestFullscreen();
         }
       } else {
+        // Handle exiting fullscreen
         if (document.exitFullscreen) {
           await document.exitFullscreen();
         } else if ((document as any).webkitExitFullscreen) {
