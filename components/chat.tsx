@@ -221,7 +221,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
                                 ]);
                                 reload();
                               }}
-                              className="w-max max-w-[90%] cursor-pointer rounded-xl bg-muted px-3 py-2.5 hover:bg-muted/80"
+                              className="w-max max-w-[90%] cursor-pointer rounded-xl bg-muted px-3 py-2.5 text-left hover:bg-muted/80"
                             >
                               {question.question}
                             </button>
