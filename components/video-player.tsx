@@ -57,6 +57,13 @@ export default function VideoPlayer({
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        document.activeElement?.tagName === 'TEXTAREA' ||
+        document.activeElement?.tagName === 'INPUT'
+      ) {
+        return;
+      }
+
       if (e.key === ' ') {
         e.preventDefault();
         if (isPlaying) {

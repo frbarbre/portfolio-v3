@@ -38,7 +38,17 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isMobile = useMobile();
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMinimizeChange = () => {
+    setIsMinimized(false);
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 300);
+  };
 
   const scrollToBottom = (behavior: 'smooth' | 'auto' | 'instant') => {
     const interval = setInterval(() => {
@@ -67,17 +77,19 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
   }, [isFullScreen]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!isMinimized) {
-        if (isMobile) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        !isMinimized &&
+        chatContainerRef.current &&
+        !chatContainerRef.current.contains(event.target as Node)
+      ) {
         setIsMinimized(true);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isMinimized]);
 
@@ -112,6 +124,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
       )}
     >
       <motion.div
+        ref={chatContainerRef}
         initial="minimized"
         className="pointer-events-auto"
         animate={
@@ -119,6 +132,8 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
         }
         variants={chatVariants}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
         <AnimatePresence mode="wait">
           {isMinimized ? (
@@ -131,7 +146,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
             >
               <Button
                 className="h-14 w-14 rounded-full bg-purple-500 shadow-lg hover:bg-purple-600"
-                onClick={() => setIsMinimized(false)}
+                onClick={handleMinimizeChange}
               >
                 <MessageCircle className="h-5 w-5 fill-white text-white" />
               </Button>
@@ -282,6 +297,7 @@ export default function Chat({ data }: { data: ChatDocument<string> }) {
                     value={input}
                     placeholder={data.data.input_placeholder || ''}
                     onChange={handleInputChange}
+                    ref={textareaRef}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) {
                         handleSubmit(e);
