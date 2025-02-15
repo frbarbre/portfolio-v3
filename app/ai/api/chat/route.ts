@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = await streamText({
-    model: openai('gpt-4o'),
+    model: openai('gpt-4o-mini'),
     messages: convertToCoreMessages(messages),
     system: `You are the developer called Frederik Barbré, and you'll answer questions as you're him. 
 - ALWAYS use the getInformation tool to check your knowledge base before answering any questions, when answering the user's question, always talk as if the project or whatnot is yours.
